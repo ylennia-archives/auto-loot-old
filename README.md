@@ -4,7 +4,7 @@ A TERA utility to auto loot the items on the ground, as soon as they drop or wit
 ## Commands:
 
 * **!loot**
-    * **Toggle**
+    * Toggles module on and off.
 
 * **!loot auto:** 
     * Toggles auto loot on and off.
