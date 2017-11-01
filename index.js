@@ -40,18 +40,23 @@ module.exports = function AutoLoot(dispatch) {
             // toggle
             if (arg === undefined) {
                 enable = !enable
-                send(`[auto-loot] : Ranged ${enable ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}.`)
+                send(`Ranged ${enable ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}<font>.</font>`)
             // auto
             } else if (arg == 'auto') {
-                auto = !auto
-                setup()
-                send(`[auto-loot] : Auto ${auto ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}.`)
+                if (enable) {
+                    auto = !auto
+                    setup()
+                    send(`Auto ${auto ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}<font>.</font>`)
+                } else {
+                    send(`<font color="#FF0000">Module is currently disabled.</font>`)
+                }
+                
             } else if (arg) {
-                send(`[auto-loot] : <font color="#FF0000">Invalid argument.</font>`)
+                send(`<font color="#FF0000">Invalid argument.</font>`)
             }
         })
         function send(msg) {
-            command.message(`<font color="#FFFFFF">` + msg + `</font>`)
+            command.message(`[auto-loot] : ` + msg)
         }
 	} catch (e) {
 		console.log(`[ERROR] -- auto-loot module --`)
@@ -105,4 +110,3 @@ module.exports = function AutoLoot(dispatch) {
     }
 
 }
-
