@@ -1,10 +1,9 @@
-# loot
-A TERA utility to auto loot the items on the ground, as soon as they drop or with a command.
+# auto-loot
+tera-proxy module to loot items automatically
 
-## Commands:
+## Dependency
+- `Command` module
 
-* **!loot:** 
-    * Toggles module on and off.
-
-* **!loot auto:** 
-    * Toggles auto loot on and off.
+## Usage
+- On/off : `loot`
+- Auto : `loot auto` to turn off loot attempt on interval
