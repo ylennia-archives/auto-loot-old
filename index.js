@@ -86,6 +86,11 @@ module.exports = function AutoLoot(dispatch) {
         if (event.message === '@41') return false
     })
 
+    // K TERA : 'That isn't yours.' message
+    dispatch.hook('S_SYSTEM_MESSAGE', (event) => {
+        if (event.message === '@41') return false
+    })
+
     // for when auto is disabled
     dispatch.hook('C_TRY_LOOT_DROPITEM', 1, (event) => { lootAll() })
 
