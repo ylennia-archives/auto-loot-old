@@ -47,12 +47,12 @@ module.exports = function AutoLoot(dispatch) {
 
     // collect items in set
     dispatch.hook('S_SPAWN_DROPITEM', (event) => {
-        if (!(blacklist.indexOf(event.item) > -1)) loot[event.cid.toString()] = event
+        if (!(blacklist.includes(event.item))) loot[event.id] = event
     }) 
     
     // remove despawned items in set
     dispatch.hook('S_DESPAWN_DROPITEM', (event) => {
-        if (event.cid.toString() in loot) delete loot[event.cid.toString()]
+        if (event.id in loot) delete loot[event.id]
     })
 
     /* // credit : Alejandro Ojeda (Github : alexoj)
@@ -74,9 +74,9 @@ module.exports = function AutoLoot(dispatch) {
         if (mounted) return
         for (let item in loot) {
             if (location) {
-                if (Math.abs(loot[item].x - location.x1) < 120 && Math.abs(loot[item].y - location.y1) < 120) {
+                if (Math.abs(loot[item].x - location.x) < 120 && Math.abs(loot[item].y - location.y) < 120) {
                     dispatch.toServer('C_TRY_LOOT_DROPITEM', {
-                        cid: loot[item].cid
+                        id: loot[item].id
                     })
                 }
             }
