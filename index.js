@@ -32,35 +32,6 @@ module.exports = function AutoLoot(dispatch) {
     let loot = {}
 
     var loop = null
-
-    // command
-    try {
-        const Command = require('command')
-        const command = Command(dispatch)
-        command.add('loot', (arg) => {
-            // toggle
-            if (arg === undefined) {
-                enable = !enable
-                send(`Ranged ${enable ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}<font>.</font>`)
-            // auto
-            } else if (arg === 'auto') {
-                auto = !auto
-                setup()
-                send(`Auto ${auto ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}<font>.</font>`)
-            // status
-            } else if (arg === 'status') {
-                send(`Status : ${enable ? 'On' : 'Off'}
-                    <br> - Auto : ${auto}`)
-            } else if (arg) {
-                send(`<font color="#FF0000">Invalid argument.</font>`)
-            }
-        })
-        function send(msg) {
-            command.message(`[auto-loot] : ` + msg)
-        }
-	} catch (e) {
-		console.log(`[ERROR] -- auto-loot module --`)
-	}
     
     // code
     dispatch.hook('S_LOGIN', (event) => { setup() })
@@ -117,4 +88,33 @@ module.exports = function AutoLoot(dispatch) {
         loop = auto ? setInterval(lootAll, 250) : null
     }
 
+    // command
+    try {
+        const Command = require('command')
+        const command = Command(dispatch)
+        command.add('loot', (arg) => {
+            // toggle
+            if (arg === undefined) {
+                enable = !enable
+                send(`Ranged ${enable ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}<font>.</font>`)
+            // auto
+            } else if (arg === 'auto') {
+                auto = !auto
+                setup()
+                send(`Auto ${auto ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}<font>.</font>`)
+            // status
+            } else if (arg === 'status') {
+                send(`Status : ${enable ? 'On' : 'Off'}
+                    <br> - Auto : ${auto}`)
+            } else if (arg) {
+                send(`<font color="#FF0000">Invalid argument.</font>`)
+            }
+        })
+        function send(msg) {
+            command.message(`[auto-loot] : ` + msg)
+        }
+	} catch (e) {
+		console.log(`[ERROR] -- auto-loot module --`)
+    }
+    
 }
