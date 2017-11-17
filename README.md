@@ -18,6 +18,9 @@ tera-proxy module to loot items automatically
 - Author : [Saegusae](https://github.com/Saegusae)
 
 ## Changelog 
+### 1.21
+- Fixed error
+- Removed protocol version restriction
 ### 1.2
 - Updated code and protocol version
 - Added `status` command
