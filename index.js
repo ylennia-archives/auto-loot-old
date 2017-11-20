@@ -9,6 +9,8 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
+// Version 1.22r01
+
 const blacklist = [
     8000, // Rejuvenation Mote
     8001, // HP Recovery Mote
