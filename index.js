@@ -9,7 +9,7 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.22r01
+// Version 1.3 r:01
 
 const blacklist = [
     8000, // Rejuvenation Mote
@@ -22,9 +22,10 @@ const blacklist = [
     139113, // 행운의 상자 (kTERA)
     166718, // 행운의 상자 (kTERA)
     213026, // 행운의 상자 (kTERA)
+    7214, // 부활 주문서 Scroll of Resurrection
 ]
 
-module.exports = function AutoLoot(dispatch) {
+module.exports = function AutoLoot(d) {
 
     let auto = true,
         enable = true,
@@ -36,39 +37,34 @@ module.exports = function AutoLoot(dispatch) {
     var loop = null
     
     // code
-    dispatch.hook('S_LOGIN', (event) => { setup() })
-    dispatch.hook('S_LOAD_TOPO', (event) => { 
+    d.hook('S_LOGIN', () => { setup() })
+    d.hook('S_LOAD_TOPO', () => { 
         loot = {},
         mounted = false
     })
-    dispatch.hook('C_PLAYER_LOCATION', (event) => { location = event })
+    d.hook('C_PLAYER_LOCATION', (e) => { location = e })
 
     // mount condition
-    dispatch.hook('S_MOUNT_VEHICLE', (event) => { mounted = true })
-    dispatch.hook('S_UNMOUNT_VEHICLE', (event) => { mounted = false })
+    d.hook('S_MOUNT_VEHICLE', () => { mounted = true })
+    d.hook('S_UNMOUNT_VEHICLE', () => { mounted = false })
 
     // collect items in set
-    dispatch.hook('S_SPAWN_DROPITEM', (event) => {
-        if (!(blacklist.includes(event.item))) loot[event.id] = event
+    d.hook('S_SPAWN_DROPITEM', (e) => {
+        if (!(blacklist.includes(e.item))) loot[e.id] = e
     }) 
     
     // remove despawned items in set
-    dispatch.hook('S_DESPAWN_DROPITEM', (event) => {
-        if (event.id in loot) delete loot[event.id]
+    d.hook('S_DESPAWN_DROPITEM', (e) => {
+        if (e.id in loot) delete loot[e.id]
     })
 
-    /* // credit : Alejandro Ojeda (Github : alexoj)
-    dispatch.hook('S_SYSTEM_MESSAGE_LOOT_ITEM', (event) => {
-        if (event.message === '@41') return false
-    }) */
-
     // K TERA : 'That isn't yours.' message
-    dispatch.hook('S_SYSTEM_MESSAGE', (event) => {
-        if (event.message === '@41') return false
+    d.hook('S_SYSTEM_MESSAGE', (e) => {
+        if (e.message === '@41') return false
     })
 
     // for when auto is disabled, attempt to loot items nearby (ranged)
-    dispatch.hook('C_TRY_LOOT_DROPITEM', (event) => { lootAll() })
+    d.hook('C_TRY_LOOT_DROPITEM', () => { lootAll() })
 
     // helper
     function lootAll() {
@@ -77,7 +73,7 @@ module.exports = function AutoLoot(dispatch) {
         for (let item in loot) {
             if (location) {
                 if (Math.abs(loot[item].x - location.x) < 120 && Math.abs(loot[item].y - location.y) < 120) {
-                    dispatch.toServer('C_TRY_LOOT_DROPITEM', {
+                    d.toServer('C_TRY_LOOT_DROPITEM', {
                         id: loot[item].id
                     })
                 }
@@ -93,7 +89,7 @@ module.exports = function AutoLoot(dispatch) {
     // command
     try {
         const Command = require('command')
-        const command = Command(dispatch)
+        const command = Command(d)
         command.add('loot', (arg) => {
             // toggle
             if (arg === undefined) {
