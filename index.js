@@ -9,7 +9,7 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.3 r:01
+// Version 1.3 r:02
 
 const blacklist = [
     8000, // Rejuvenation Mote
