@@ -9,7 +9,7 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.3 r:02
+// Version 1.31 r:00
 
 const blacklist = [
     8000, // Rejuvenation Mote
@@ -72,7 +72,8 @@ module.exports = function AutoLoot(d) {
         if (mounted) return
         for (let item in loot) {
             if (location) {
-                if (Math.abs(loot[item].x - location.x) < 120 && Math.abs(loot[item].y - location.y) < 120) {
+                if (Math.abs(loot[item].x - location.x) < 120 
+                    && Math.abs(loot[item].y - location.y) < 120) {
                     d.toServer('C_TRY_LOOT_DROPITEM', {
                         id: loot[item].id
                     })
@@ -108,11 +109,7 @@ module.exports = function AutoLoot(d) {
                 send(`<font color="#FF0000">Invalid argument.</font>`)
             }
         })
-        function send(msg) {
-            command.message(`[auto-loot] : ` + msg)
-        }
-	} catch (e) {
-		console.log(`[ERROR] -- auto-loot module --`)
-    }
+        function send(msg) { command.message(`[auto-loot] : ` + msg) }
+	} catch (e) { console.log(`[ERROR] -- auto-loot module --`) }
     
 }
