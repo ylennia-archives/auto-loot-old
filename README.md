@@ -18,6 +18,9 @@ tera-proxy module to loot items automatically
 - Author : [Saegusae](https://github.com/Saegusae)
 
 ## Changelog
+### 1.32
+- Updated code
+- Added Some-AV-Popo's string.clr() function
 ### 1.31
 - Update code aesthetics
 ### 1.3
