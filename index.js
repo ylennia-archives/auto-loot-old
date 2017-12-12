@@ -9,7 +9,7 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.31 r:00
+// Version 1.32 r:00
 
 const blacklist = [
     8000, // Rejuvenation Mote
@@ -32,9 +32,8 @@ module.exports = function AutoLoot(d) {
         location = 0,
         mounted = false
 
-    let loot = {}
-
-    var loop = null
+    let loop,
+        loot = {}
     
     // code
     d.hook('S_LOGIN', () => { setup() })
@@ -68,8 +67,7 @@ module.exports = function AutoLoot(d) {
 
     // helper
     function lootAll() {
-        if (!enable) return
-        if (mounted) return
+        if (!enable || mounted) return
         for (let item in loot) {
             if (location) {
                 if (Math.abs(loot[item].x - location.x) < 120 
@@ -93,23 +91,27 @@ module.exports = function AutoLoot(d) {
         const command = Command(d)
         command.add('loot', (arg) => {
             // toggle
-            if (arg === undefined) {
+            if (!arg) {
                 enable = !enable
-                send(`Ranged ${enable ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}<font>.</font>`)
+                status()
             // auto
             } else if (arg === 'auto') {
                 auto = !auto
                 setup()
-                send(`Auto ${auto ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'}<font>.</font>`)
+                send(`Auto loot ${auto ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
             // status
-            } else if (arg === 'status') {
-                send(`Status : ${enable ? 'On' : 'Off'}
-                    <br> - Auto : ${auto}`)
-            } else if (arg) {
-                send(`<font color="#FF0000">Invalid argument.</font>`)
-            }
+            } else if (arg === 'status') status()
+            else send(`Invalid argument.`.clr('FF0000'))
         })
         function send(msg) { command.message(`[auto-loot] : ` + msg) }
+        function sendLines() { send([...arguments].join('\n\t - ')) }
+        function status() { sendLines(
+            `Ranged loot ${enable ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'),
+            `Auto loot : ${auto ? 'enabled' : 'disabled'}`) 
+        }
 	} catch (e) { console.log(`[ERROR] -- auto-loot module --`) }
     
 }
+
+// credit : https://github.com/Some-AV-Popo
+String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
