@@ -20,7 +20,7 @@ tera-proxy module to loot items automatically
 ## Changelog
 ### 1.32
 - Updated code
-- Added Some-AV-Popo's string.clr() function
+- Added string function
 ### 1.31
 - Update code aesthetics
 ### 1.3
