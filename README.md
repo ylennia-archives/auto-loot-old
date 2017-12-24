@@ -25,7 +25,7 @@ tera-proxy module to loot items automatically
 - Added string function
 ### 1.31
 - Update code aesthetics
-### 1.3
+### 1.30
 - Update code aesthetics
 ### 1.22
 - Fixed error
@@ -33,10 +33,10 @@ tera-proxy module to loot items automatically
 ### 1.21
 - Fixed error
 - Removed protocol version restriction
-### 1.2
+### 1.20
 - Updated code and protocol version
 - Added `status` command
-### 1.1
+### 1.10
 - Personalized code aesthetics
-### 1.0
+### 1.00
 - Initial fork
