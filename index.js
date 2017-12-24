@@ -9,7 +9,7 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.32 r:01
+// Version 1.33 r:00
 
 const blacklist = [
     8000, // Rejuvenation Mote
@@ -29,16 +29,16 @@ module.exports = function AutoLoot(d) {
 
     let auto = true,
         enable = true,
-        location = 0,
+        location = -1,
         mounted = false
 
-    let loop,
+    let loop = null,
         loot = {}
     
     // code
     d.hook('S_LOGIN', () => { setup() })
     d.hook('S_LOAD_TOPO', () => { 
-        loot = {},
+        loot = {};
         mounted = false
     })
     d.hook('C_PLAYER_LOCATION', (e) => { location = e })
@@ -48,19 +48,13 @@ module.exports = function AutoLoot(d) {
     d.hook('S_UNMOUNT_VEHICLE', () => { mounted = false })
 
     // collect items in set
-    d.hook('S_SPAWN_DROPITEM', (e) => {
-        if (!(blacklist.includes(e.item))) loot[e.id] = e
-    }) 
+    d.hook('S_SPAWN_DROPITEM', (e) => { if (!(blacklist.includes(e.item))) loot[e.id] = e }) 
     
     // remove despawned items in set
-    d.hook('S_DESPAWN_DROPITEM', (e) => {
-        if (e.id in loot) delete loot[e.id]
-    })
+    d.hook('S_DESPAWN_DROPITEM', (e) => { if (e.id in loot) delete loot[e.id] })
 
     // K TERA : 'That isn't yours.' message
-    d.hook('S_SYSTEM_MESSAGE', (e) => {
-        if (e.message === '@41') return false
-    })
+    d.hook('S_SYSTEM_MESSAGE', (e) => { if (e.message === '@41') return false })
 
     // for when auto is disabled, attempt to loot items nearby (ranged)
     d.hook('C_TRY_LOOT_DROPITEM', () => { lootAll() })
@@ -82,6 +76,7 @@ module.exports = function AutoLoot(d) {
 
     function setup() {
         clearInterval(loop)
+        loop = null;
         loop = auto ? setInterval(lootAll, 250) : null
     }
 
@@ -98,15 +93,14 @@ module.exports = function AutoLoot(d) {
             } else if (arg === 'auto') {
                 auto = !auto
                 setup()
-                send(`Auto loot ${auto ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
+                send(`Auto loot ${auto ? 'enabled'.clr('5AFF39') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
             // status
             } else if (arg === 'status') status()
             else send(`Invalid argument.`.clr('FF0000'))
         })
-        function send(msg) { command.message(`[auto-loot] : ` + msg) }
-        function sendLines() { send([...arguments].join('\n\t - ')) }
-        function status() { sendLines(
-            `Ranged loot ${enable ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'),
+        function send(msg) { command.message(`[auto-loot] : ` + [...arguments].join('\n\t - ')) }
+        function status() { send(
+            `Ranged loot ${enable ? 'enabled'.clr('5AFF39') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'),
             `Auto loot : ${auto ? 'enabled' : 'disabled'}`) 
         }
 	} catch (e) { console.log(`[ERROR] -- auto-loot module --`) }
