@@ -9,7 +9,7 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.33 r:00
+// Version 1.34 r:00
 
 const blacklist = [
     8000, // Rejuvenation Mote
@@ -32,7 +32,7 @@ module.exports = function AutoLoot(d) {
         location = -1,
         mounted = false
 
-    let loop = null,
+    let loop = -1,
         loot = {}
     
     // code
@@ -76,7 +76,7 @@ module.exports = function AutoLoot(d) {
 
     function setup() {
         clearInterval(loop)
-        loop = null;
+        loop = -1;
         loop = auto ? setInterval(lootAll, 250) : null
     }
 
@@ -93,14 +93,14 @@ module.exports = function AutoLoot(d) {
             } else if (arg === 'auto') {
                 auto = !auto
                 setup()
-                send(`Auto loot ${auto ? 'enabled'.clr('5AFF39') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
+                send(`Auto loot ${auto ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
             // status
             } else if (arg === 'status') status()
             else send(`Invalid argument.`.clr('FF0000'))
         })
         function send(msg) { command.message(`[auto-loot] : ` + [...arguments].join('\n\t - ')) }
         function status() { send(
-            `Ranged loot ${enable ? 'enabled'.clr('5AFF39') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'),
+            `Ranged loot ${enable ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'),
             `Auto loot : ${auto ? 'enabled' : 'disabled'}`) 
         }
 	} catch (e) { console.log(`[ERROR] -- auto-loot module --`) }
