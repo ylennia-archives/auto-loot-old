@@ -18,15 +18,17 @@ tera-proxy module to loot items automatically
 - Author : [Saegusae](https://github.com/Saegusae)
 
 ## Changelog
+### 1.34
+- Updated code and font color
 ### 1.33
-- Update code aesthetics
+- Updated code aesthetics
 ### 1.32
 - Updated code
 - Added string function
 ### 1.31
-- Update code aesthetics
+- Updated code aesthetics
 ### 1.30
-- Update code aesthetics
+- Updated code aesthetics
 ### 1.22
 - Fixed error
 - Updated code
