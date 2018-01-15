@@ -9,7 +9,7 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.34 r:00
+// Version 1.34 r:01
 
 const blacklist = [
     8000, // Rejuvenation Mote
@@ -37,10 +37,7 @@ module.exports = function AutoLoot(d) {
     
     // code
     d.hook('S_LOGIN', () => { setup() })
-    d.hook('S_LOAD_TOPO', () => { 
-        loot = {};
-        mounted = false
-    })
+    d.hook('S_LOAD_TOPO', () => { loot = {}; mounted = false })
     d.hook('C_PLAYER_LOCATION', (e) => { location = e })
 
     // mount condition
@@ -77,7 +74,7 @@ module.exports = function AutoLoot(d) {
     function setup() {
         clearInterval(loop)
         loop = -1;
-        loop = auto ? setInterval(lootAll, 250) : null
+        loop = auto ? setInterval(lootAll, 250) : -1
     }
 
     // command
