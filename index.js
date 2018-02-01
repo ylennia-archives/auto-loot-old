@@ -9,9 +9,10 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.34 r:01
+// Version 1.35 r:00
 
 const blacklist = [
+    7214, // Scroll of Resurrection
     8000, // Rejuvenation Mote
     8001, // HP Recovery Mote
     8002, // MP Replenishment Mote
@@ -19,10 +20,15 @@ const blacklist = [
     8018, // Arun's Vitae XI Mote
     8023, // Arun's Tear Mote
     8025, // Keening Dawn Mote
+    169886,
+    169887,
+    169888,
+    169889,
+    169890, // Locked Extensive Strongbox
+    169891, // Locked Spellbound Strongbox
     139113, // 행운의 상자 (kTERA)
     166718, // 행운의 상자 (kTERA)
     213026, // 행운의 상자 (kTERA)
-    7214, // 부활 주문서 Scroll of Resurrection
 ]
 
 module.exports = function AutoLoot(d) {
@@ -61,11 +67,8 @@ module.exports = function AutoLoot(d) {
         if (!enable || mounted) return
         for (let item in loot) {
             if (location) {
-                if (Math.abs(loot[item].x - location.x) < 120 
-                    && Math.abs(loot[item].y - location.y) < 120) {
-                    d.toServer('C_TRY_LOOT_DROPITEM', {
-                        id: loot[item].id
-                    })
+                if (Math.abs(loot[item].x - location.x) < 120 && Math.abs(loot[item].y - location.y) < 120) {
+                    d.toServer('C_TRY_LOOT_DROPITEM', { id: loot[item].id })
                 }
             }
         }
@@ -83,11 +86,9 @@ module.exports = function AutoLoot(d) {
         const command = Command(d)
         command.add('loot', (arg) => {
             // toggle
-            if (!arg) {
-                enable = !enable
-                status()
+            if (!arg) { enable = !enable; status() }
             // auto
-            } else if (arg === 'auto') {
+            else if (arg === 'auto') {
                 auto = !auto
                 setup()
                 send(`Auto loot ${auto ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
