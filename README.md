@@ -20,6 +20,8 @@ tera-proxy module to loot items automatically
 ## Changelog
 <details>
 
+    1.35
+    - Added strongboxes to blacklist
     1.34
     - Updated code and font color
     1.33
