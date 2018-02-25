@@ -9,7 +9,7 @@
 // - S_SYSTEM_MESSAGE
 // - S_UNMOUNT_VEHICLE
 
-// Version 1.35 r:01
+// Version 1.35 r:02
 
 const blacklist = [
     7214, // Scroll of Resurrection
@@ -80,16 +80,16 @@ module.exports = function AutoLoot(d) {
     try {
         const Command = require('command')
         const command = Command(d)
-        command.add('loot', (arg) => {
+        command.add(['loot', 'ㅣㅐㅐㅅ'], (arg) => {
             // toggle
             if (!arg) { enable = !enable; status() }
             // auto
-            else if (arg === 'auto') {
+            else if (arg === 'a' || arg === 'auto') {
                 auto = !auto
                 setup()
                 send(`Auto loot ${auto ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
             // status
-            } else if (arg === 'status') status()
+            } else if (arg === 's' || arg === 'status') status()
             else send(`Invalid argument.`.clr('FF0000'))
         })
         function send(msg) { command.message(`[auto-loot] : ` + [...arguments].join('\n\t - ')) }
