@@ -5,13 +5,13 @@ tera-proxy module to loot items automatically
 - `Command` module
 
 ## Usage
-### `loot`
+### `loot` · `ㅣㅐㅐㅅ`
 - Toggle on/off
 - Default is on
-### `loot auto`
+### `loot auto` · `loot a`
 - Toggle automatic loot attempt on interval on/off
 - Default is on
-### `loot status`
+### `loot status` · `loot s`
 - Send status of module and auto function
 
 ## Info
