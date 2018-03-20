@@ -15,11 +15,14 @@ tera-proxy module to loot items automatically
 - Send status of module and auto function
 
 ## Info
-- Author : [Saegusae](https://github.com/Saegusae)
+- Original author : [Saegusae](https://github.com/Saegusae)
 
 ## Changelog
 <details>
 
+    1.36
+    - Added auto-update support
+    - Updated to latest tera-data
     1.35
     - Added strongboxes to blacklist
     1.34
