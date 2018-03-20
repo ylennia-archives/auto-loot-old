@@ -1,56 +1,37 @@
-// OPCODE REQUIRED : 
-// - C_PLAYER_LOCATION
-// - C_TRY_LOOT_DROPITEM
-// - S_DESPAWN_DROPITEM
-// - S_LOGIN
-// - S_LOAD_TOPO
-// - S_MOUNT_VEHICLE
-// - S_SPAWN_DROPITEM
-// - S_SYSTEM_MESSAGE
-// - S_UNMOUNT_VEHICLE
+// Version 1.36 r:00
 
-// Version 1.35 r:02
+const Command = require('command')
+const config = require('./config.json')
+const blacklist = require('./blacklist.js')
 
-const blacklist = [
-    7214, // Scroll of Resurrection
-    8000, // Rejuvenation Mote
-    8001, // HP Recovery Mote
-    8002, // MP Replenishment Mote
-    8003, // Spirited MP Replenishment Mote
-    8004, // Strong Resistance Mote
-    8005, // Healing Mote
-    8008, 8009, 8010, 8011, 8012, 8013, 8014, 8015, 8016, 8017, 8018, 8019, 8020, 8021, 8022, // Arun's Vitae I-XV Mote
-    8023, // Arun's Tear Mote
-    8025, // Keening Dawn Mote
-    139113, 166718, 213026, // 행운의 상자 (K TERA)
-    169886, 169887, 169888, 169889, 169890, 169891, // Locked ???? Strongbox
-    180668 // Fashion Coupon
-]
+// credit : https://github.com/Some-AV-Popo
+String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
 
 module.exports = function AutoLoot(d) {
+    const command = Command(d)
 
-    let auto = true,
-        enable = true,
-        location = -1,
+    let auto = config.auto,
+        enable = config.enable
+
+    let location = {},
+        loop = -1,
+        loot = {},
         mounted = false
 
-    let loop = -1,
-        loot = {}
-    
     // code
     d.hook('S_LOGIN', () => { setup() })
     d.hook('S_LOAD_TOPO', () => { loot = {}; mounted = false })
-    d.hook('C_PLAYER_LOCATION', (e) => { location = e })
+    d.hook('C_PLAYER_LOCATION', (e) => { location = e.loc })
 
     // mount condition
     d.hook('S_MOUNT_VEHICLE', () => { mounted = true })
     d.hook('S_UNMOUNT_VEHICLE', () => { mounted = false })
 
     // collect items in set
-    d.hook('S_SPAWN_DROPITEM', (e) => { if (!(blacklist.includes(e.item))) loot[e.id] = e }) 
+    d.hook('S_SPAWN_DROPITEM', (e) => { if (!(blacklist.includes(e.item))) loot[e.gameId] = e })
     
     // remove despawned items in set
-    d.hook('S_DESPAWN_DROPITEM', (e) => { if (e.id in loot) delete loot[e.id] })
+    d.hook('S_DESPAWN_DROPITEM', (e) => { if (e.gameId in loot) delete loot[e.gameId] })
 
     // K TERA : 'That isn't yours.' message
     d.hook('S_SYSTEM_MESSAGE', (e) => { if (e.message === '@41') return false })
@@ -63,8 +44,8 @@ module.exports = function AutoLoot(d) {
         if (!enable || mounted) return
         for (let item in loot) {
             if (location) {
-                if (Math.abs(loot[item].x - location.x) < 120 && Math.abs(loot[item].y - location.y) < 120) {
-                    d.toServer('C_TRY_LOOT_DROPITEM', { id: loot[item].id })
+                if (Math.abs(loot[item].loc.x - location.x) < 120 && Math.abs(loot[item].loc.y - location.y) < 120) {
+                    d.toServer('C_TRY_LOOT_DROPITEM', { gameId: loot[item].gameId })
                 }
             }
         }
@@ -77,29 +58,22 @@ module.exports = function AutoLoot(d) {
     }
 
     // command
-    try {
-        const Command = require('command')
-        const command = Command(d)
-        command.add(['loot', 'ㅣㅐㅐㅅ'], (arg) => {
-            // toggle
-            if (!arg) { enable = !enable; status() }
-            // auto
-            else if (arg === 'a' || arg === 'auto') {
-                auto = !auto
-                setup()
-                send(`Auto loot ${auto ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
-            // status
-            } else if (arg === 's' || arg === 'status') status()
-            else send(`Invalid argument.`.clr('FF0000'))
-        })
-        function send(msg) { command.message(`[auto-loot] : ` + [...arguments].join('\n\t - ')) }
-        function status() { send(
-            `Ranged loot ${enable ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'),
-            `Auto loot : ${auto ? 'enabled' : 'disabled'}`) 
-        }
-	} catch (e) { console.log(`[ERROR] -- auto-loot module --`) }
-    
-}
+    command.add(['loot', 'ㅣㅐㅐㅅ'], (arg) => {
+        // toggle
+        if (!arg) { enable = !enable; status() }
+        // auto
+        else if (arg === 'a' || arg === 'auto') {
+            auto = !auto
+            setup()
+            send(`Auto loot ${auto ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}`)
+        // status
+        } else if (arg === 's' || arg === 'status') status()
+        else send(`Invalid argument.`.clr('FF0000'))
+    })
+    function send(msg) { command.message(`[auto-loot] : ` + [...arguments].join('\n\t - '.clr('FFFFFF'))) }
+    function status() { send(
+        `Ranged loot : ${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`,
+        `Auto loot : ${auto ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`)
+    }
 
-// credit : https://github.com/Some-AV-Popo
-String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
+}
