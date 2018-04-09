@@ -20,6 +20,11 @@ tera-proxy module to loot items automatically
 ## Changelog
 <details>
 
+    1.37
+    - Updated script in accordance to Pinkipi's update on master branch
+    -- Added loot interval
+    -- Added loot scan interval
+    -- Added additional config options accordingly
     1.36
     - Added auto-update support
     - Updated to latest tera-data
