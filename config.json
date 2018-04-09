@@ -1,4 +1,6 @@
 {
+    "auto": true,
     "enable": true,
-    "auto": true
+    "interval": 100,
+    "scanInterval": 400 
 }

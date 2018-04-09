@@ -1,4 +1,7 @@
-// Version 1.36 r:00
+// May : manifest.json, majorPatchVersion update required
+// - S_LOGIN
+
+// Version 1.37 r:00
 
 const Command = require('command')
 const config = require('./config.json')
@@ -11,11 +14,14 @@ module.exports = function AutoLoot(d) {
     const command = Command(d)
 
     let auto = config.auto,
-        enable = config.enable
+        enable = config.enable,
+        lootInterval = config.interval,
+        lootScanInterval = config.scanInterval
 
     let location = {},
         loop = -1,
         loot = {},
+        lootTimeout = 0,
         mounted = false
 
     // code
@@ -48,13 +54,16 @@ module.exports = function AutoLoot(d) {
                     d.toServer('C_TRY_LOOT_DROPITEM', { gameId: loot[item].gameId })
                 }
             }
+            // rudimentary way to delay loot attempt
+            // could convert async function/await as alternative
+            lootTimeout = setTimeout(() => {}, lootScanInterval)
         }
     }
 
     function setup() {
         clearInterval(loop)
         loop = -1;
-        loop = auto ? setInterval(lootAll, 250) : -1
+        loop = auto ? setInterval(lootAll, lootInterval) : -1
     }
 
     // command
