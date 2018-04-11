@@ -5,14 +5,27 @@ tera-proxy module to loot items automatically
 - `Command` module
 
 ## Usage
-### `loot` · `ㅣㅐㅐㅅ`
-- Toggle on/off
-- Default is on
-### `loot auto` · `loot a`
-- Toggle automatic loot attempt on interval on/off
-- Default is on
-### `loot status` · `loot s`
-- Send status of module and auto function
+- __`loot` · `ㅣㅐㅐㅅ`__
+  - Toggle on/off
+- __`loot auto` · `loot a`__
+  - Toggle automatic loot attempt on interval on/off
+- __`loot status` · `loot s`__
+  - Send status of module and auto function
+
+## Config
+- __`auto`__
+  - Initialize automatic loot attempt on interval on/off
+  - Default is `true`
+- __`enable`__
+  - Initialize module on/off
+  - Default is `true`
+- __`loopInterval`__
+  - Initialize loot attempt interval
+  - Default is `250`
+- __`lootDelay`__
+  - Initialize loot attempt delay
+  - Default is `400`
+
 
 ## Info
 - Original author : [Saegusae](https://github.com/Saegusae)
@@ -22,9 +35,11 @@ tera-proxy module to loot items automatically
 
     1.37
     - Updated script in accordance to Pinkipi's update on master branch
-    -- Added loot interval
-    -- Added loot scan interval
-    -- Added additional config options accordingly
+    - Refactored config file
+    -- Added `auto`
+    -- Added `enable`
+    -- Added `loopInterval`
+    -- Added `lootDelay`
     1.36
     - Added auto-update support
     - Updated to latest tera-data

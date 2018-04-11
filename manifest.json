@@ -1,25 +1,24 @@
 {
-  "files": {
-      "blacklist.js": {
-          "overwrite": false,
-          "hash": "f3b8875eca10268ad43ec3e8e785364bec0f7383c81d720614d11daa2587392b"            
-      },
-      "config.json": { 
-          "overwrite": true,
-          "hash": "068256fccb2c4dc1ac9217d33a5227ca5634c57609ebdd5e6e3f4e949c755207"
-      },
-      "index.js": "06fa201904ffe65c8120e5b9ec6d3d57ebdb5d71497ded54bf20d13ff0b80ac0",
-      "module.json": "11cbff68448ff988dd9f33b11f371ed75187ec9fca8cb811568e753ddbe2bab4"
-  },
-  "defs": {
-      "C_PLAYER_LOCATION": 3,
-      "C_TRY_LOOT_DROPITEM": 4,
-      "S_DESPAWN_DROPITEM": 4,
-      "S_LOGIN": 9,
-      "S_LOAD_TOPO": 3,
-      "S_MOUNT_VEHICLE": 2,
-      "S_SPAWN_DROPITEM": 6,
-      "S_SYSTEM_MESSAGE": 1,
-      "S_UNMOUNT_VEHICLE": 2
+    "files": {
+        "blacklist.js": {
+            "overwrite": false,
+            "hash": "f3b8875eca10268ad43ec3e8e785364bec0f7383c81d720614d11daa2587392b"            
+        },
+        "config.json": { 
+            "overwrite": false,
+            "hash": "92c1f75660a796c4022e375bb2a53238a05241948abd6aef59b1175d7cd4d2ce"
+        },
+        "index.js": "c3ac941b19a48a61ccc1c02986bd0e608d9b41c9fbe53959241343f5ffd489f2",
+        "module.json": "11cbff68448ff988dd9f33b11f371ed75187ec9fca8cb811568e753ddbe2bab4"
+    },
+    "defs": {
+        "C_PLAYER_LOCATION": 3,
+        "C_TRY_LOOT_DROPITEM": 4,
+        "S_DESPAWN_DROPITEM": 4,
+        "S_LOGIN": 9,
+        "S_MOUNT_VEHICLE": 2,
+        "S_SPAWN_DROPITEM": 6,
+        "S_SYSTEM_MESSAGE": 1,
+        "S_UNMOUNT_VEHICLE": 2
+    }
   }
-}

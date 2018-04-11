@@ -1,6 +1,6 @@
 {
     "auto": true,
     "enable": true,
-    "interval": 100,
-    "scanInterval": 400 
+    "loopInterval": 250,
+    "lootDelay": 400
 }

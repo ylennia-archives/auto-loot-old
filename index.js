@@ -1,7 +1,7 @@
 // May : manifest.json, majorPatchVersion update required
 // - S_LOGIN
 
-// Version 1.37 r:00
+// Version 1.37 r:01
 
 const Command = require('command')
 const config = require('./config.json')
@@ -15,23 +15,27 @@ module.exports = function AutoLoot(d) {
 
     let auto = config.auto,
         enable = config.enable,
-        lootInterval = config.interval,
-        lootScanInterval = config.scanInterval
+        loopInterval = config.loopInterval,
+        lootDelay = config.lootDelay
 
     let location = {},
-        loop = -1,
+        loop = 0,
         loot = {},
-        lootTimeout = 0,
-        mounted = false
+        lootDelayTimeout = 0,
+        mounted = false,
+        myGameId = 0
 
     // code
-    d.hook('S_LOGIN', () => { setup() })
-    d.hook('S_LOAD_TOPO', () => { loot = {}; mounted = false })
+    d.hook('S_LOGIN', (e) => {
+        myGameId = e.gameId
+        setup()
+    })
+    d.hook('S_LOAD_TOPO', 'raw', () => { loot = {}; mounted = false })
     d.hook('C_PLAYER_LOCATION', (e) => { location = e.loc })
 
     // mount condition
-    d.hook('S_MOUNT_VEHICLE', () => { mounted = true })
-    d.hook('S_UNMOUNT_VEHICLE', () => { mounted = false })
+    d.hook('S_MOUNT_VEHICLE', (e) => { if (e.gameId.equals(myGameId)) mounted = true })
+    d.hook('S_UNMOUNT_VEHICLE', (e) => { if (e.gameId.equals(myGameId)) mounted = false })
 
     // collect items in set
     d.hook('S_SPAWN_DROPITEM', (e) => { if (!(blacklist.includes(e.item))) loot[e.gameId] = e })
@@ -54,16 +58,16 @@ module.exports = function AutoLoot(d) {
                     d.toServer('C_TRY_LOOT_DROPITEM', { gameId: loot[item].gameId })
                 }
             }
-            // rudimentary way to delay loot attempt
+            // rudimentary way to delay looting nearby dropitems
             // could convert async function/await as alternative
-            lootTimeout = setTimeout(() => {}, lootScanInterval)
+            lootDelayTimeout = setTimeout(() => {}, lootDelay)
         }
     }
 
     function setup() {
         clearInterval(loop)
-        loop = -1;
-        loop = auto ? setInterval(lootAll, lootInterval) : -1
+        loop = 0;
+        loop = auto ? setInterval(lootAll, loopInterval) : 0
     }
 
     // command
