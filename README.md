@@ -21,7 +21,7 @@ tera-proxy module to loot items automatically
   - Default is `true`
 - __`loopInterval`__
   - Initialize loot attempt interval
-  - Default is `250`
+  - Default is `500`
 - __`lootDelay`__
   - Initialize loot attempt delay
   - Default is `400`

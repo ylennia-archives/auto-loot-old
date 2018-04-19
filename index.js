@@ -1,7 +1,4 @@
-// May : manifest.json, majorPatchVersion update required
-// - S_LOGIN
-
-// Version 1.37 r:01
+// Version 1.37 r:02
 
 const Command = require('command')
 const config = require('./config.json')
