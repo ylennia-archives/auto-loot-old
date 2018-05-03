@@ -1,4 +1,4 @@
-// Version 1.37 r:03
+// Version 1.37 r:04
 
 const Command = require('command')
 const Vec3 = require('vec3')
@@ -16,7 +16,7 @@ module.exports = function AutoLootOld(d) {
         loopInterval = config.loopInterval,
         lootDelay = config.lootDelay
 
-    let location = {},
+    let location = new Vec3(0, 0, 0),
         loop = 0,
         loot = {},
         lootDelayTimeout = 0,
@@ -29,7 +29,7 @@ module.exports = function AutoLootOld(d) {
         setup()
     })
     d.hook('S_LOAD_TOPO', 'raw', () => { loot = {}; mounted = false })
-    d.hook('C_PLAYER_LOCATION', (e) => { location = new Vec3(e.loc) })
+    d.hook('C_PLAYER_LOCATION', (e) => { location = e.loc })
 
     // mount condition
     d.hook('S_MOUNT_VEHICLE', (e) => { if (e.gameId.equals(myGameId)) mounted = true })
@@ -51,13 +51,13 @@ module.exports = function AutoLootOld(d) {
     function lootAll() {
         if (!enable || mounted) return
         for (let item in loot) {
-            let location_item = new Vec3(item.loc)
-            if (location.dist3D(location_item) < 120) {
-                d.toServer('C_TRY_LOOT_DROPITEM', { gameId: item.gameId })
+            if (location.dist3D(loot[item].loc) < 120) {
+                d.toServer('C_TRY_LOOT_DROPITEM', { gameId: loot[item].gameId })
             }
             // rudimentary way to delay looting nearby dropitems
             // could convert async function/await as alternative
             lootDelayTimeout = setTimeout(() => {}, lootDelay)
+
         }
     }
 
