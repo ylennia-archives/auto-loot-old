@@ -6,9 +6,9 @@
 		},
 		"config.json": {
 			"overwrite": false,
-			"hash": "c480f1d187c0df13e88495cb564d5818ff4bcd9e52079ee7ed21548feff1d761"
+			"hash": "e9ed8f20688b41b707f00ec0525bc6abb2051735601fe316608db246fbda74d2"
 		},
-		"index.js": "59de4fd4b190bb975198a1524668fd1362425d538c5ad45aa299b933cdb8ab61",
+		"index.js": "881b210d14fdd63df65fc9344c85058e82618c7151617002d51f6cb734d6452f",
 		"module.json": "11cbff68448ff988dd9f33b11f371ed75187ec9fca8cb811568e753ddbe2bab4"
 	},
 	"defs": {

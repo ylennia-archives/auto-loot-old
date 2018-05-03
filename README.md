@@ -1,4 +1,4 @@
-# auto-loot
+# auto-loot-old
 tera-proxy module to loot items automatically
 
 ## Dependency
@@ -7,9 +7,10 @@ tera-proxy module to loot items automatically
 ## Usage
 - __`loot` · `ㅣㅐㅐㅅ`__
   - Toggle on/off
-- __`loot auto` · `loot a`__
+### Parameters
+- __`auto` · `a`__
   - Toggle automatic loot attempt on interval on/off
-- __`loot status` · `loot s`__
+- __`status` · `s`__
   - Send status of module and auto function
 
 ## Config

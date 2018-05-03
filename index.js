@@ -1,13 +1,14 @@
-// Version 1.37 r:02
+// Version 1.37 r:03
 
 const Command = require('command')
+const Vec3 = require('vec3')
 const config = require('./config.json')
 const blacklist = require('./blacklist.js')
 
 // credit : https://github.com/Some-AV-Popo
 String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
 
-module.exports = function AutoLoot(d) {
+module.exports = function AutoLootOld(d) {
     const command = Command(d)
 
     let auto = config.auto,
@@ -28,7 +29,7 @@ module.exports = function AutoLoot(d) {
         setup()
     })
     d.hook('S_LOAD_TOPO', 'raw', () => { loot = {}; mounted = false })
-    d.hook('C_PLAYER_LOCATION', (e) => { location = e.loc })
+    d.hook('C_PLAYER_LOCATION', (e) => { location = new Vec3(e.loc) })
 
     // mount condition
     d.hook('S_MOUNT_VEHICLE', (e) => { if (e.gameId.equals(myGameId)) mounted = true })
@@ -50,10 +51,9 @@ module.exports = function AutoLoot(d) {
     function lootAll() {
         if (!enable || mounted) return
         for (let item in loot) {
-            if (location) {
-                if (Math.abs(loot[item].loc.x - location.x) < 120 && Math.abs(loot[item].loc.y - location.y) < 120) {
-                    d.toServer('C_TRY_LOOT_DROPITEM', { gameId: loot[item].gameId })
-                }
+            let location_item = new Vec3(item.loc)
+            if (location.dist3D(location_item) < 120) {
+                d.toServer('C_TRY_LOOT_DROPITEM', { gameId: item.gameId })
             }
             // rudimentary way to delay looting nearby dropitems
             // could convert async function/await as alternative
@@ -70,17 +70,20 @@ module.exports = function AutoLoot(d) {
     // command
     command.add(['loot', 'ㅣㅐㅐㅅ'], (arg) => {
         // toggle
-        if (!arg) { enable = !enable; status() }
+        if (!arg) {
+            enable = !enable
+            status()
+        }
         // auto
         else if (arg === 'a' || arg === 'auto') {
             auto = !auto
             setup()
-            send(`Auto loot ${auto ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}`)
+        }
         // status
-        } else if (arg === 's' || arg === 'status') status()
+        else if (arg === 's' || arg === 'status') status()
         else send(`Invalid argument.`.clr('FF0000'))
     })
-    function send(msg) { command.message(`[auto-loot] : ` + [...arguments].join('\n\t - '.clr('FFFFFF'))) }
+    function send(msg) { command.message(`[auto-loot-old] : ` + [...arguments].join('\n\t - '.clr('FFFFFF'))) }
     function status() { send(
         `Ranged loot : ${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`,
         `Auto loot : ${auto ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`)
