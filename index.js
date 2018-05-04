@@ -1,7 +1,7 @@
-// Version 1.37 r:04
+// Version 1.37 r:05
 
 const Command = require('command')
-const Vec3 = require('vec3')
+const Vec3 = require('tera-vec3')
 const config = require('./config.json')
 const blacklist = require('./blacklist.js')
 
