@@ -3,6 +3,7 @@ tera-proxy module to loot items automatically
 
 ## Dependency
 - `Command` module
+- `Vec3` module
 
 ## Usage
 - __`loot` · `ㅣㅐㅐㅅ`__

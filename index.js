@@ -1,4 +1,4 @@
-// Version 1.37 r:05
+// Version 1.37 r:06
 
 const Command = require('command')
 const Vec3 = require('tera-vec3')
@@ -52,7 +52,7 @@ module.exports = function AutoLootOld(d) {
         if (!enable || mounted) return
         for (let item in loot) {
             if (location.dist3D(loot[item].loc) < 120) {
-                d.toServer('C_TRY_LOOT_DROPITEM', { gameId: loot[item].gameId })
+                d.send('C_TRY_LOOT_DROPITEM', 4, { gameId: loot[item].gameId })
             }
             // rudimentary way to delay looting nearby dropitems
             // could convert async function/await as alternative
