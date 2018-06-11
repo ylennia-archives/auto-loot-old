@@ -1,14 +1,8 @@
 {
 	"files": {
-		"blacklist.js": {
-			"overwrite": false,
-			"hash": "f3b8875eca10268ad43ec3e8e785364bec0f7383c81d720614d11daa2587392b"
-		},
-		"config.json": {
-			"overwrite": false,
-			"hash": "e9ed8f20688b41b707f00ec0525bc6abb2051735601fe316608db246fbda74d2"
-		},
-		"index.js": "65fda081e706095be39728d55e494112153e23eca55b01221cd4f25b06670cc5",
+		"blacklist.js": { "overwrite": false, "hash": "f3b8875eca10268ad43ec3e8e785364bec0f7383c81d720614d11daa2587392b" },
+		"config.json": { "overwrite": false, "hash": "e9ed8f20688b41b707f00ec0525bc6abb2051735601fe316608db246fbda74d2" },
+		"index.js": "116d137326aea35bc5a937bcc98e12fb7d4c372a0ecc74820d8e56b94f032726",
 		"module.json": "11cbff68448ff988dd9f33b11f371ed75187ec9fca8cb811568e753ddbe2bab4"
 	},
 	"defs": {

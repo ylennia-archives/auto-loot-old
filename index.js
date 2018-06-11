@@ -1,4 +1,4 @@
-// Version 1.37 r:06
+// Version 1.37 r:07
 
 const Command = require('command')
 const Vec3 = require('tera-vec3')
@@ -24,28 +24,28 @@ module.exports = function AutoLootOld(d) {
         myGameId = 0
 
     // code
-    d.hook('S_LOGIN', (e) => {
+    d.hook('S_LOGIN', 10, (e) => {
         myGameId = e.gameId
         setup()
     })
     d.hook('S_LOAD_TOPO', 'raw', () => { loot = {}; mounted = false })
-    d.hook('C_PLAYER_LOCATION', (e) => { location = e.loc })
+    d.hook('C_PLAYER_LOCATION', 3, (e) => { location = e.loc })
 
     // mount condition
-    d.hook('S_MOUNT_VEHICLE', (e) => { if (e.gameId.equals(myGameId)) mounted = true })
-    d.hook('S_UNMOUNT_VEHICLE', (e) => { if (e.gameId.equals(myGameId)) mounted = false })
+    d.hook('S_MOUNT_VEHICLE', 2, (e) => { if (e.gameId.equals(myGameId)) mounted = true })
+    d.hook('S_UNMOUNT_VEHICLE', 2, (e) => { if (e.gameId.equals(myGameId)) mounted = false })
 
     // collect items in set
-    d.hook('S_SPAWN_DROPITEM', (e) => { if (!(blacklist.includes(e.item))) loot[e.gameId] = e })
+    d.hook('S_SPAWN_DROPITEM', 6, (e) => { if (!(blacklist.includes(e.item))) loot[e.gameId] = e })
     
     // remove despawned items in set
-    d.hook('S_DESPAWN_DROPITEM', (e) => { if (e.gameId in loot) delete loot[e.gameId] })
+    d.hook('S_DESPAWN_DROPITEM', 4, (e) => { if (e.gameId in loot) delete loot[e.gameId] })
 
     // K TERA : 'That isn't yours.' message
-    d.hook('S_SYSTEM_MESSAGE', (e) => { if (e.message === '@41') return false })
+    d.hook('S_SYSTEM_MESSAGE', 1, (e) => { if (e.message === '@41') return false })
 
     // for when auto is disabled, attempt to loot items nearby (ranged)
-    d.hook('C_TRY_LOOT_DROPITEM', () => { lootAll() })
+    d.hook('C_TRY_LOOT_DROPITEM', 4, () => { lootAll() })
 
     // helper
     function lootAll() {
