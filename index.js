@@ -1,4 +1,4 @@
-// Version 1.37 r:07
+// Version 1.37 r:08
 
 const Command = require('command')
 const Vec3 = require('tera-vec3')
@@ -22,6 +22,23 @@ module.exports = function AutoLootOld(d) {
         lootDelayTimeout = 0,
         mounted = false,
         myGameId = 0
+
+    // command
+    command.add(['loot', 'ㅣㅐㅐㅅ'], (arg) => {
+        // toggle
+        if (!arg) {
+            enable = !enable
+            status()
+        }
+        // auto
+        else if (arg === 'a' || arg === 'auto') {
+            auto = !auto
+            setup()
+        }
+        // status
+        else if (arg === 's' || arg === 'status') status()
+        else send(`Invalid argument.`.clr('FF0000'))
+    })
 
     // code
     d.hook('S_LOGIN', 10, (e) => {
@@ -67,23 +84,8 @@ module.exports = function AutoLootOld(d) {
         loop = auto ? setInterval(lootAll, loopInterval) : 0
     }
 
-    // command
-    command.add(['loot', 'ㅣㅐㅐㅅ'], (arg) => {
-        // toggle
-        if (!arg) {
-            enable = !enable
-            status()
-        }
-        // auto
-        else if (arg === 'a' || arg === 'auto') {
-            auto = !auto
-            setup()
-        }
-        // status
-        else if (arg === 's' || arg === 'status') status()
-        else send(`Invalid argument.`.clr('FF0000'))
-    })
     function send(msg) { command.message(`[auto-loot-old] : ` + [...arguments].join('\n\t - '.clr('FFFFFF'))) }
+
     function status() { send(
         `Ranged loot : ${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`,
         `Auto loot : ${auto ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`)

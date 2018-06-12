@@ -31,6 +31,7 @@ tera-proxy module to loot items automatically
 
 ## Info
 - Original author : [Saegusae](https://github.com/Saegusae)
+- **Support seraph via paypal donations, thanks in advance : [paypal](https://www.paypal.me/seraphinush)**
 
 ## Changelog
 <details>
