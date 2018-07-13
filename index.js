@@ -1,10 +1,10 @@
-// Version 1.38 r:00
+// Version 1.38 r:01
 
 const Command = require('command')
 const GameState = require('tera-game-state')
 const Vec3 = require('tera-vec3')
 
-const config = require('./config.json')
+const config = require('./config.js')
 
 module.exports = function AutoLootOld(d) {
     const command = Command(d)
