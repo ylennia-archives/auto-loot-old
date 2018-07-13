@@ -1,18 +1,14 @@
 {
 	"files": {
-		"blacklist.js": { "overwrite": false, "hash": "f3b8875eca10268ad43ec3e8e785364bec0f7383c81d720614d11daa2587392b" },
-		"config.json": { "overwrite": false, "hash": "e9ed8f20688b41b707f00ec0525bc6abb2051735601fe316608db246fbda74d2" },
-		"index.js": "40f94ec57a72634d44a5f50a14ae6fc63738b634872478a768e1da8f6b8e7d25",
+		"config.json": { "overwrite": false, "hash": "ca0f5d52da7746ae0e3da88af01c5678a0c176fca8844d9d03eac1d48a0c9046" },
+		"index.js": "135a385cb2fc8b304d4670a998c67f2f6790af0013b6463887028eb0b6f0ff10",
 		"module.json": "11cbff68448ff988dd9f33b11f371ed75187ec9fca8cb811568e753ddbe2bab4"
 	},
 	"defs": {
 		"C_PLAYER_LOCATION": 3,
 		"C_TRY_LOOT_DROPITEM": 4,
 		"S_DESPAWN_DROPITEM": 4,
-		"S_LOGIN": 10,
-		"S_MOUNT_VEHICLE": 2,
 		"S_SPAWN_DROPITEM": 6,
-		"S_SYSTEM_MESSAGE": 1,
-		"S_UNMOUNT_VEHICLE": 2
+		"S_SYSTEM_MESSAGE": 1
 	}
 }

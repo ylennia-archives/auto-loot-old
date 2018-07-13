@@ -2,13 +2,14 @@
 tera-proxy module to loot items automatically
 
 ## Dependency
-- `Command` module
-- `Vec3` module
+- `command` module
+- `tera-game-state` module
+- `tera-vec3` module
 
 ## Usage
 - __`loot` · `ㅣㅐㅐㅅ`__
   - Toggle on/off
-### Parameters
+### Arguments
 - __`auto` · `a`__
   - Toggle automatic loot attempt on interval on/off
 - __`status` · `s`__
@@ -36,6 +37,9 @@ tera-proxy module to loot items automatically
 ## Changelog
 <details>
 
+    1.38
+    - Removed font color bloat
+    - Added `tera-game-state` dependency
     1.37
     - Updated script in accordance to Pinkipi's update on master branch
     - Refactored config file
