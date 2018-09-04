@@ -10,9 +10,9 @@ tera-proxy module to loot items automatically
 - __`loot` · `ㅣㅐㅐㅅ`__
   - Toggle on/off
 ### Arguments
-- __`auto` · `a`__
+- __`auto`__
   - Toggle automatic loot attempt on interval on/off
-- __`status` · `s`__
+- __`status`__
   - Send status of module and auto function
 
 ## Config
@@ -37,6 +37,11 @@ tera-proxy module to loot items automatically
 ## Changelog
 <details>
 
+    1.39
+    - Removed `command` require()
+    - Removed `tera-game-state` require()
+    - Updated to `mod.command`
+    - Updated to `mod.game`
     1.38
     - Removed font color bloat
     - Added `tera-game-state` dependency
