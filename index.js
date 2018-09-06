@@ -1,4 +1,4 @@
-// Version 1.39 r:01
+// Version 1.39 r:02
 
 const Vec3 = require('tera-vec3');
 
@@ -32,13 +32,13 @@ module.exports = function AutoLootOld(m) {
     });
 
     // mod.game
-    m.game.me.on('enter_game', () => { setup(); });
+    m.game.on('enter_game', () => { setup(); });
     m.game.me.on('change_zone', () => { loot.length = 0; loot = {}; })
 
-    m.game.me.on('leave_game', () => {
+    m.game.on('leave_game', () => {
         clearTimeout(lootDelayTimeout);
-        lootDelayTimeout = null;
         clearInterval(loop);
+        lootDelayTimeout = null;
         loop = null;
     });
 
