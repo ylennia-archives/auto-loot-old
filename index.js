@@ -1,4 +1,5 @@
-// Version 1.39 r:02
+// Version 1.39 r:03
+'use strict';
 
 const Vec3 = require('tera-vec3');
 
@@ -7,8 +8,8 @@ const config = require('./config.js');
 module.exports = function AutoLootOld(m) {
 
     // config
-    let enableAuto = config.enableAuto,
-        enable = config.enable;
+    let enable = config.enable,
+        enableAuto = config.enableAuto;
 
     let location = new Vec3(0, 0, 0),
         loop = null,
@@ -23,7 +24,7 @@ module.exports = function AutoLootOld(m) {
             status();
         },
         auto() {
-            enableAuto = enableAuto;
+            enableAuto = !enableAuto;
             setup();
             status();
         },
@@ -33,7 +34,7 @@ module.exports = function AutoLootOld(m) {
 
     // mod.game
     m.game.on('enter_game', () => { setup(); });
-    m.game.me.on('change_zone', () => { loot.length = 0; loot = {}; })
+    m.game.me.on('change_zone', () => { loot.length = 0; loot = {}; });
 
     m.game.on('leave_game', () => {
         clearTimeout(lootDelayTimeout);
@@ -61,11 +62,11 @@ module.exports = function AutoLootOld(m) {
         if (!enable || m.game.me.mounted) return
         clearTimeout(lootDelayTimeout)
         lootDelayTimeout = null;
-        if (loot.size = 0) return
+        if (loot.size = 0) return;
         for (let item in loot) {
             if (location.dist3D(loot[item].loc) < 120) {
                 m.send('C_TRY_LOOT_DROPITEM', 4, { gameId: loot[item].gameId });
-                break
+                break;
             }
         }
         lootDelayTimeout = setTimeout(lootAll, config.lootDelay);
@@ -80,8 +81,8 @@ module.exports = function AutoLootOld(m) {
     function send(msg) { m.command.message(`: ` + [...arguments].join('\n\t - ')); }
 
     function status() { send(
-        `Ranged loot : ${enable ? 'Enabled' : 'Disabled'}`,
-        `Auto loot : ${enableAuto ? 'Enabled' : 'Disabled'}`);
+        `Ranged loot : ${enable ? 'En' : 'Dis'}abled`,
+        `Auto loot : ${enableAuto ? 'En' : 'Dis'}abled`);
     }
 
 }

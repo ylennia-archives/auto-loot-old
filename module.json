@@ -1,6 +1,5 @@
 {
     "disableAutoUpdate": false,
     "options": { "niceName": "auto-loot-old" },
-    "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/auto-loot/master/"],
-    "supportUrl": "https://github.com/seraphinush-gaming/auto-loot/issues"
+    "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/auto-loot/master/"]
 }
