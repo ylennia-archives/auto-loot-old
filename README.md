@@ -2,7 +2,7 @@
 tera-proxy module to loot items automatically
 
 ## Auto-update guide
-- Create a folder called `auto-loot-old` in `tera-proxy/bin/node_modules` and download [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/auto-loot-old/master/module.json) (right-click save link as...) into the folder
+- Create a folder called `auto-loot-old` in `tera-proxy/bin/node_modules` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/auto-loot-old/master/module.json) << (right-click save link as...) into the folder
 
 ## Dependency
 - `command` module

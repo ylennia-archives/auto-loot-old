@@ -1,11 +1,11 @@
 {
 	"files": {
-		"README.md": "8035f41a14764e07de212f43d61808eb00fc627202bec2750521f8cd431f9ccd",
+		"README.md": "97291be3c86de8bd76f09c948a029116c6c9a3dbb0f558c9e70a5f34a483b9ec",
 		"config.js": {
 			"overwrite": false,
 			"hash": "b40534bb2bb273b01ecb4b632266811cba5e9b6afc8ede25428173d02983bcfd"
 		},
-		"index.js": "da582ddcbe455e9a74ff9209b402e9d29bf730a92c16146ddd5cc9761ac2d005",
+		"index.js": "e17b33be6cbcfd8c7e382985e23a2749bf681857bda5466e1158f5ad1d15f37d",
 		"module.json": "efd84f45ed7d6712808f896a8e8cc597f47fb8810c6d4e0352ce9c7fb163dfd3"
 	},
 	"defs": {
