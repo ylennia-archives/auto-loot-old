@@ -1,5 +1,8 @@
 {
     "disableAutoUpdate": false,
-    "options": { "niceName": "auto-loot-old" },
+    "name": "auto-loot-old",
+    "author": "seraphinush",
+    "description": "tera-proxy module to loot items automatically",
+    "version": "1.40.00",
     "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/auto-loot/master/"]
 }

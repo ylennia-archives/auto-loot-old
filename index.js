@@ -1,4 +1,3 @@
-// Version 1.39 r:04
 'use strict';
 
 const Vec3 = require('tera-vec3');
@@ -32,12 +31,18 @@ module.exports = function AutoLootOld(mod) {
         'status': () => {
             status();
         },
-        '$default': () => { send('Invalid argument. usage : loot [auto|status]'); }
+        '$default': () => { send(`Invalid argument. usage : loot [auto|status]`); }
     });
 
     // mod.game
-    mod.game.on('enter_game', () => { setup(); });
-    mod.game.me.on('change_zone', () => { loot.length = 0; loot = {}; });
+    mod.game.on('enter_game', () => {
+        setup();
+    });
+
+    mod.game.me.on('change_zone', () => {
+        loot.length = 0;
+        loot = {};
+    });
 
     mod.game.on('leave_game', () => {
         clearTimeout(lootDelayTimeout);
@@ -69,7 +74,7 @@ module.exports = function AutoLootOld(mod) {
 
     // helper
     function lootAll() {
-        if (!enable || mod.game.me.mounted) return
+        if (!enable || mod.game.me.mounted) return;
         clearTimeout(lootDelayTimeout);
         lootDelayTimeout = null;
         if (loot.size = 0) return;
@@ -88,7 +93,7 @@ module.exports = function AutoLootOld(mod) {
         loop = enableAuto ? setInterval(lootAll, config.loopInterval) : null;
     }
 
-    function send(msg) { cmd.message(`: ` + [...arguments].join('\n\t - ')); }
+    function send(msg) { cmd.message(': ' + [...arguments].join('\n\t - ')); }
 
     function status() {
         send(
