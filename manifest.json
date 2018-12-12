@@ -1,12 +1,12 @@
 {
 	"files": {
-		"README.md": "56513fce756e9ee2fdeefc91474a9a388ccfc1f206dacd8edbd2fdd4136dea84",
+		"README.md": "65252a1d00b943f3b794aeb92c71a29973fd12fb4abc326007a14aba29710176",
 		"config.js": {
 			"overwrite": false,
 			"hash": "cc71d49b2652fda1cba2263f1c655e508e792cf460384216747429d567a65e58"
 		},
 		"index.js": "ed955427985676cdbb0b347321aeba5c507403874248f75ceb2a9d0011316070",
-		"module.json": "fb8f13f3abf3f63eed2a670b61a6520f6f983840d1acda44081220706e1bb681"
+		"module.json": "3bd004bd7ae37b7a563563915d3b5c9438a1b21abaf8f9052f094e6cfebbb2d9"
 	},
 	"defs": {
 		"C_PLAYER_LOCATION": 5,
