@@ -3,7 +3,7 @@
     "name": "auto-loot-old",
     "author": "seraphinush | Saegusae",
     "description": "tera-proxy module to loot items automatically",
-    "version": "1.40.01",
+    "version": "1.40.02",
     "options": {
         "niceName": "auto-loot",
         "reloadable": true
