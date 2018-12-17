@@ -11,7 +11,8 @@ module.exports = function AutoLootOld(mod) {
     let enable = config.enable,
         enableAuto = config.enableAuto;
 
-    let location = new Vec3(0, 0, 0),
+    let hold = false,
+        location = new Vec3(0, 0, 0),
         loop = null,
         loot = {},
         lootDelayTimeout = null;
@@ -28,16 +29,16 @@ module.exports = function AutoLootOld(mod) {
             setup();
             status();
         },
-        'status': () => {
-            status();
-        },
-        '$default': () => { send(`Invalid argument. usage : loot [auto|status]`); }
+        'status': () => status(),
+        '$default': () => send(`Invalid argument. usage : loot [auto|status]`)
     });
 
     // mod.game
-    mod.game.on('enter_game', () => {
-        setup();
-    });
+    mod.game.on('enter_game', () => setup() );
+
+    mod.game.on('enter_loading_screen', () => hold = true );
+
+    mod.game.on('leave_loading_screen', () => hold = false );
 
     mod.game.me.on('change_zone', () => {
         loot.length = 0;
@@ -52,9 +53,7 @@ module.exports = function AutoLootOld(mod) {
     });
 
     // code
-    mod.hook('C_PLAYER_LOCATION', 5, (e) => {
-        location = e.loc;
-    });
+    mod.hook('C_PLAYER_LOCATION', 5, (e) => location = e.loc );
 
     mod.hook('S_SPAWN_DROPITEM', 6, (e) => {
         if (!(config.blacklist.includes(e.item))) {
@@ -70,11 +69,11 @@ module.exports = function AutoLootOld(mod) {
 
     mod.hook('S_SYSTEM_MESSAGE', 1, (e) => { if (e.message === '@41') return false });
 
-    mod.hook('C_TRY_LOOT_DROPITEM', 4, () => { lootAll(); });
+    mod.hook('C_TRY_LOOT_DROPITEM', 4, () => lootAll() );
 
     // helper
     function lootAll() {
-        if (!enable || mod.game.me.mounted) return;
+        if (!enable || hold || mod.game.me.mounted) return;
         clearTimeout(lootDelayTimeout);
         lootDelayTimeout = null;
         if (loot.size = 0) return;
@@ -86,6 +85,11 @@ module.exports = function AutoLootOld(mod) {
         }
         lootDelayTimeout = setTimeout(lootAll, config.lootDelay);
     }
+    
+    function status() {
+        send(`${enable ? 'En' : 'Dis'}abled`,
+        `Auto-loot ${enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}` );
+    }
 
     function setup() {
         clearInterval(loop);
@@ -95,10 +99,27 @@ module.exports = function AutoLootOld(mod) {
 
     function send(msg) { cmd.message(': ' + [...arguments].join('\n\t - ')); }
 
-    function status() {
-        send(
-            `Ranged loot : ${enable ? 'En' : 'Dis'}abled`,
-            `Auto loot : ${enableAuto ? 'En' : 'Dis'}abled`);
+
+    // reload
+    this.saveState = () => {
+        let state = {
+            enable: enable,
+            enableAuto: enableAuto
+        };
+        return state;
+    }
+
+	this.loadState = (state) => {
+        enable = state.enable;
+        enableAuto = state.enableAuto;
+		setup();
+        status();
+	}
+
+    this.destructor = () => {
+        clearTimeout(lootDelayTimeout);
+        clearInterval(loop);
+        cmd.remove(['loot', 'ㅣㅐㅐㅅ']);
     }
 
 }
