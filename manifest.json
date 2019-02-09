@@ -5,14 +5,13 @@
 			"overwrite": false,
 			"hash": "cc71d49b2652fda1cba2263f1c655e508e792cf460384216747429d567a65e58"
 		},
-		"index.js": "f547e181a48ba0d2473cf4c57e22f9587271c0fc63cbda13352a538ef030e9ce",
-		"module.json": "134060e5beaa7b4c1a4acefba72390dd5216ea3146ed70b7a5700a2e5f86c7ef"
+		"index.js": "0f813364bc998b490ef74b70b8d9e19e467e025b8cce10623cdaf4734716108f",
+		"module.json": "e3cbc6b4f79d19a995db09b50d93aa03751beec524fc32be338270663ba90f0e"
 	},
 	"defs": {
 		"C_PLAYER_LOCATION": 5,
 		"C_TRY_LOOT_DROPITEM": 4,
 		"S_DESPAWN_DROPITEM": 4,
-		"S_EXIT": "raw",
 		"S_LOAD_TOPO": "raw",
 		"S_LOGIN": "raw",
 		"S_SPAWN_DROPITEM": 6,

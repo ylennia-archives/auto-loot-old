@@ -36,19 +36,12 @@ module.exports = function AutoLootOld(mod) {
     // game state
     mod.hook('S_LOGIN', 'raw', { order: -1000 }, () => setup() );
 
-    mod.hook('S_SPAWN_ME', 'raw', { order: -1000 }, () => hold = false );
+    mod.hook('S_SPAWN_ME', 'raw', { order: -1000 }, () => { hold = false; });
 
     mod.hook('S_LOAD_TOPO', 'raw', () => {
         hold = true;
         loot.length = 0;
         loot = {};
-    });
-
-    mod.tryHook('S_EXIT', 'raw', () => {
-        clearTimeout(lootDelayTimeout);
-        clearInterval(loop);
-        lootDelayTimeout = null;
-        loop = null;
     });
 
     // code
