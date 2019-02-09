@@ -5,7 +5,7 @@ Support seraph via paypal donations, thanks in advance !
 ```
 
 ## Auto-update guide
-- Create a folder called `auto-loot-old` in `tera-proxy/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/auto-loot-old/master/module.json) << (right-click this link and save as..) into the folder
+- Create a folder called `auto-loot-old` in `tera-proxy/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/auto-loot-old/master/module.json) << (right-click this link and save link as..) into the folder
 
 ## Usage
 - __`loot` · `ㅣㅐㅐㅅ`__
@@ -36,12 +36,14 @@ Support seraph via paypal donations, thanks in advance !
 ## Changelog
 <details>
 
+    1.42
+    - Removed `tera-game-state` usage
     1.41
     - Added hot-reload support
     1.40
     - Updated for caali-proxy-nextgen
     1.39
-    - Removed `command` require()
+    - Removed `Command` require()
     - Removed `tera-game-state` require()
     - Updated to `mod.command`
     - Updated to `mod.game`

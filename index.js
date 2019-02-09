@@ -33,19 +33,18 @@ module.exports = function AutoLootOld(mod) {
         '$default': () => send(`Invalid argument. usage : loot [auto|status]`)
     });
 
-    // mod.game
-    mod.game.on('enter_game', () => setup() );
+    // game state
+    mod.hook('S_LOGIN', 'raw', { order: -1000 }, () => setup() );
 
-    mod.game.on('enter_loading_screen', () => hold = true );
+    mod.hook('S_SPAWN_ME', 'raw', { order: -1000 }, () => hold = false );
 
-    mod.game.on('leave_loading_screen', () => hold = false );
-
-    mod.game.me.on('change_zone', () => {
+    mod.hook('S_LOAD_TOPO', 'raw', () => {
+        hold = true;
         loot.length = 0;
         loot = {};
     });
 
-    mod.game.on('leave_game', () => {
+    mod.tryHook('S_EXIT', 'raw', () => {
         clearTimeout(lootDelayTimeout);
         clearInterval(loop);
         lootDelayTimeout = null;
@@ -56,24 +55,26 @@ module.exports = function AutoLootOld(mod) {
     mod.hook('C_PLAYER_LOCATION', 5, (e) => location = e.loc );
 
     mod.hook('S_SPAWN_DROPITEM', 6, (e) => {
-        if (!(config.blacklist.includes(e.item))) {
+        if (!(config.blacklist.includes(e.item)))
             loot[e.gameId] = e;
-        }
     });
 
     mod.hook('S_DESPAWN_DROPITEM', 4, (e) => { 
-        if (e.gameId in loot) {
+        if (e.gameId in loot)
             delete loot[e.gameId];
-        }
     });
 
-    mod.hook('S_SYSTEM_MESSAGE', 1, (e) => { if (e.message === '@41') return false });
+    mod.hook('S_SYSTEM_MESSAGE', 1, (e) => { 
+        if (e.message === '@41')
+        return false
+    });
 
     mod.hook('C_TRY_LOOT_DROPITEM', 4, () => lootAll() );
 
     // helper
     function lootAll() {
-        if (!enable || hold || mod.game.me.mounted) return;
+        if (!enable || hold || mod.game.me.mounted)
+            return;
         clearTimeout(lootDelayTimeout);
         lootDelayTimeout = null;
         if (loot.size = 0) return;
