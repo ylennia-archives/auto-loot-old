@@ -1,18 +1,19 @@
 'use strict';
 
-const Vec3 = require('tera-vec3');
-
 const config = require('./config.js');
 
 module.exports = function AutoLootOld(mod) {
-    const cmd = mod.command || mod.require.command;
+    const cmd = mod.command;
+
+    // KR
+    let VERSION_S_SPAWN_DROPITEM = mod.majorPatchVersion >= 80 ? 7 : 6;
 
     // config
     let enable = config.enable,
         enableAuto = config.enableAuto;
 
-    let hold = false,
-        location = new Vec3(0, 0, 0),
+    let hold = true,
+        location = { x: 0, y: 0, z: 0 },
         loop = null,
         loot = {},
         lootDelayTimeout = null;
@@ -29,60 +30,74 @@ module.exports = function AutoLootOld(mod) {
             setup();
             status();
         },
-        'status': () => status(),
-        '$default': () => send(`Invalid argument. usage : loot [auto|status]`)
+        'status': () => {
+            status();
+        },
+        '$default': () => {
+            send(`Invalid argument. usage : loot [auto|status]`);
+        }
     });
 
     // game state
-    mod.hook('S_LOGIN', 'raw', { order: -1000 }, () => setup() );
+    mod.hook('S_LOGIN', 'raw', { order: -1000 }, () => { setup(); });
 
     mod.hook('S_SPAWN_ME', 'raw', { order: -1000 }, () => { hold = false; });
 
-    mod.hook('S_LOAD_TOPO', 'raw', () => {
+    mod.hook('S_LOAD_TOPO', 3, { order: -1000 }, (e) => {
         hold = true;
+        location = e.loc;
         loot.length = 0;
         loot = {};
     });
 
     // code
-    mod.hook('C_PLAYER_LOCATION', 5, (e) => location = e.loc );
+    mod.hook('C_PLAYER_LOCATION', 5, (e) => { location = e.loc; });
 
-    mod.hook('S_SPAWN_DROPITEM', 6, (e) => {
+    mod.hook('S_SPAWN_DROPITEM', VERSION_S_SPAWN_DROPITEM, (e) => {
         if (!(config.blacklist.includes(e.item)))
             loot[e.gameId] = e;
     });
 
-    mod.hook('S_DESPAWN_DROPITEM', 4, (e) => { 
+    mod.hook('S_DESPAWN_DROPITEM', 4, (e) => {
         if (e.gameId in loot)
             delete loot[e.gameId];
     });
 
-    mod.hook('S_SYSTEM_MESSAGE', 1, (e) => { 
-        if (e.message === '@41')
-        return false
+    mod.hook('S_SYSTEM_MESSAGE', 1, (e) => {
+        let msg = this.mod.parseSystemMessage(e.message).id;
+        if (msg === 'SMT_CANNOT_LOOT_ITEM')
+            return false;
     });
 
-    mod.hook('C_TRY_LOOT_DROPITEM', 4, () => lootAll() );
+    mod.hook('C_TRY_LOOT_DROPITEM', 4, () => {
+        lootAll();
+    });
 
     // helper
+    function dist3D(loc1, loc2) {
+        return Math.sqrt(
+            Math.pow(loc2.x - loc1.x, 2) +
+            Math.pow(loc2.y - loc1.y, 2) +
+            Math.pow(loc2.z - loc1.z, 2));
+    }
+
     function lootAll() {
-        if (!enable || hold || mod.game.me.mounted)
+        if (!enable || hold || loot.size === 0)
             return;
         clearTimeout(lootDelayTimeout);
         lootDelayTimeout = null;
-        if (loot.size = 0) return;
         for (let item in loot) {
-            if (location.dist3D(loot[item].loc) < 120) {
+            if (dist3D(location, loot[item].loc) < 120) {
                 mod.send('C_TRY_LOOT_DROPITEM', 4, { gameId: loot[item].gameId });
                 break;
             }
         }
         lootDelayTimeout = setTimeout(lootAll, config.lootDelay);
     }
-    
+
     function status() {
         send(`${enable ? 'En' : 'Dis'}abled`,
-        `Auto-loot ${enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}` );
+            `Auto-loot ${enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}`);
     }
 
     function setup() {
@@ -103,12 +118,12 @@ module.exports = function AutoLootOld(mod) {
         return state;
     }
 
-	this.loadState = (state) => {
+    this.loadState = (state) => {
         enable = state.enable;
         enableAuto = state.enableAuto;
-		setup();
+        setup();
         status();
-	}
+    }
 
     this.destructor = () => {
         clearTimeout(lootDelayTimeout);
