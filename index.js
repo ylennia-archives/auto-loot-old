@@ -64,7 +64,7 @@ module.exports = function AutoLootOld(mod) {
     });
 
     mod.hook('S_SYSTEM_MESSAGE', 1, (e) => {
-        let msg = this.mod.parseSystemMessage(e.message).id;
+        let msg = mod.parseSystemMessage(e.message).id;
         if (msg === 'SMT_CANNOT_LOOT_ITEM')
             return false;
     });
