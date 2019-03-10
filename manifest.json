@@ -14,7 +14,7 @@
 		"S_DESPAWN_DROPITEM": 4,
 		"S_LOAD_TOPO": 3,
 		"S_LOGIN": "raw",
-		"S_SPAWN_DROPITEM": [6,7],
+		"S_SPAWN_DROPITEM": [6],
 		"S_SPAWN_ME": "raw",
 		"S_SYSTEM_MESSAGE": 1
 	}
