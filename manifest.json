@@ -3,10 +3,10 @@
 		"README.md": "171e69b710aa184e96c4da60d04f3a5e2d942504a0f078de47d9611c45691473",
 		"config.js": {
 			"overwrite": false,
-			"hash": "cc71d49b2652fda1cba2263f1c655e508e792cf460384216747429d567a65e58"
+			"hash": "0434acd1d4705dacec1db71da362c090a2c0ca08dd561dc30561bbe8befad322"
 		},
-		"index.js": "1272f9156c54468384d2c91b15835e84219eb3e4680bf4851515de35318c192e",
-		"module.json": "2e68a3f1bfb7a5226b7319228a53f3c93545ffac4289db49907b7e6a3447f8bd"
+		"index.js": "c8fdff26cc3114a6c622e425acfe79f326a2262b9a374bc57dbb110d185b71ae",
+		"module.json": "d26b96fee5b94ef3c91e19fc19125b7d7e6cfef4cda38268cd09cf3dd99b5068"
 	},
 	"defs": {
 		"C_PLAYER_LOCATION": 5,
@@ -14,7 +14,7 @@
 		"S_DESPAWN_DROPITEM": 4,
 		"S_LOAD_TOPO": 3,
 		"S_LOGIN": "raw",
-		"S_SPAWN_DROPITEM": [6],
+		"S_SPAWN_DROPITEM": 7,
 		"S_SPAWN_ME": "raw",
 		"S_SYSTEM_MESSAGE": 1
 	}
