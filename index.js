@@ -9,7 +9,6 @@ module.exports = function AutoLootOld(mod) {
   let enable = config.enable;
   let enableAuto = config.enableAuto;
 
-  let hold = true;
   let location = { x: 0, y: 0, z: 0 };
   let loop = null;
   let loot = {};
@@ -37,12 +36,12 @@ module.exports = function AutoLootOld(mod) {
   });
 
   // game state
-  mod.hook('S_LOGIN', 'raw', { order: -1000 }, () => { setup(); });
-
-  mod.hook('S_SPAWN_ME', 'raw', { order: -1000 }, () => { hold = false; });
+  mod.hook('S_SPAWN_ME', 'raw', { order: -1000 }, () => {
+    setup();
+  });
 
   mod.hook('S_LOAD_TOPO', 3, { order: -1000 }, (e) => {
-    hold = true;
+    clearInterval(loop);
     location = e.loc;
     loot.length = 0;
     loot = {};
@@ -63,15 +62,10 @@ module.exports = function AutoLootOld(mod) {
     }
   });
 
-  mod.hook('S_SYSTEM_MESSAGE', 1, (e) => {
-    let msg = mod.parseSystemMessage(e.message).id;
-    if (msg === 'SMT_CANNOT_LOOT_ITEM') {
-      return false;
-    }
-  });
-
   mod.hook('C_TRY_LOOT_DROPITEM', 4, () => {
-    lootAll();
+    if (enable && !enableAuto) {
+      lootAll();
+    }
   });
 
   // helper
@@ -84,7 +78,7 @@ module.exports = function AutoLootOld(mod) {
   }
 
   function lootAll() {
-    if (!enable || hold || loot.size === 0) {
+    if (!enable || loot.size === 0) {
       return;
     }
     clearTimeout(lootDelayTimeout);
@@ -115,7 +109,8 @@ module.exports = function AutoLootOld(mod) {
   this.saveState = () => {
     let state = {
       enable: enable,
-      enableAuto: enableAuto
+      enableAuto: enableAuto,
+      location: location
     };
     return state;
   }
@@ -123,6 +118,7 @@ module.exports = function AutoLootOld(mod) {
   this.loadState = (state) => {
     enable = state.enable;
     enableAuto = state.enableAuto;
+    location = state.location;
     setup();
     status();
   }
@@ -130,6 +126,14 @@ module.exports = function AutoLootOld(mod) {
   this.destructor = () => {
     clearTimeout(lootDelayTimeout);
     clearInterval(loop);
+
+    lootDelayTimeout = undefined;
+    loot = undefined;
+    loop = undefined;
+    location = undefined;
+    enableAuto = undefined;
+    enable = undefined;
+
     cmd.remove(['loot', 'ㅣㅐㅐㅅ']);
   }
 

@@ -1,21 +1,19 @@
 {
 	"files": {
-		"README.md": "171e69b710aa184e96c4da60d04f3a5e2d942504a0f078de47d9611c45691473",
+		"README.md": "4c8f0e0cf0f3ac77bf5e132c7ede1c6fecd0751854fd1566269c2481a826f149",
 		"config.js": {
 			"overwrite": false,
 			"hash": "0434acd1d4705dacec1db71da362c090a2c0ca08dd561dc30561bbe8befad322"
 		},
-		"index.js": "c8fdff26cc3114a6c622e425acfe79f326a2262b9a374bc57dbb110d185b71ae",
-		"module.json": "d26b96fee5b94ef3c91e19fc19125b7d7e6cfef4cda38268cd09cf3dd99b5068"
+		"index.js": "92a28668788ae2dcf59edeb5d4aa2a068118fd0a86dcdb90bb6f7dfb1c42b559",
+		"module.json": "b5f830b226d014b0be778337c13a2e602d18c8778b1b0c4a26b60858842bb3f6"
 	},
 	"defs": {
 		"C_PLAYER_LOCATION": 5,
 		"C_TRY_LOOT_DROPITEM": 4,
 		"S_DESPAWN_DROPITEM": 4,
 		"S_LOAD_TOPO": 3,
-		"S_LOGIN": "raw",
 		"S_SPAWN_DROPITEM": 7,
-		"S_SPAWN_ME": "raw",
-		"S_SYSTEM_MESSAGE": 1
+		"S_SPAWN_ME": "raw"
 	}
 }
