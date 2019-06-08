@@ -1,37 +1,53 @@
 'use strict';
 
-const config = require('./config.js');
-
 module.exports = function AutoLootOld(mod) {
   const cmd = mod.command;
 
-  // config
-  let enable = config.enable;
-  let enableAuto = config.enableAuto;
+  let settings = mod.settings;
 
   let location = { x: 0, y: 0, z: 0 };
   let loop = null;
   let loot = {};
-  let lootDelayTimeout = null;
+  let timeout = null;
 
   // command
   cmd.add(['loot', 'ㅣㅐㅐㅅ'], {
     // toggle
     '$none': () => {
-      enable = !enable;
+      settings.enable = !settings.enable;
       setup();
-      send(`${enable ? 'En' : 'Dis'}abled`);
+      send(`${settings.enable ? 'En' : 'Dis'}abled`);
     },
     'auto': () => {
-      enableAuto = !enableAuto;
+      settings.enableAuto = !settings.enableAuto;
       setup();
-      send(`Automatic loot interval ${enableAuto ? 'en' : 'dis'}abled`);
+      send(`Automatic loot interval ${settings.enableAuto ? 'en' : 'dis'}abled`);
+    },
+    'set': {
+      'delay': (num) => {
+        num = parseInt(num);
+        if (!isNaN(num)) {
+          settings.lootDelay = num;
+          send(`Set automatic loot attempt delay to ${num} ms.`);
+        }
+      },
+      'interval': (num) => {
+        num = parseInt(num);
+        if (!isNaN(num)) {
+          settings.loopInterval = num;
+          send(`Set automatic loot interval delay to ${num} ms.`);
+        }
+      },
+      '$default': () => {
+        send(`Invalid argument. usage : loot set [delay|interval]`);
+      }
     },
     'status': () => {
-      status();
+      send(`${settings.enable ? 'En' : 'Dis'}abled`,
+        `Auto-loot ${settings.enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}`);
     },
     '$default': () => {
-      send(`Invalid argument. usage : loot [auto|status]`);
+      send(`Invalid argument. usage : loot [auto|set|status]`);
     }
   });
 
@@ -46,26 +62,9 @@ module.exports = function AutoLootOld(mod) {
     loot.length = 0;
     loot = {};
   });
-
-  // code
-  mod.hook('C_PLAYER_LOCATION', 5, (e) => { location = e.loc; });
-
-  mod.hook('S_SPAWN_DROPITEM', 7, (e) => {
-    if (!(config.blacklist.includes(e.item))) {
-      loot[e.gameId] = e;
-    }
-  });
-
-  mod.hook('S_DESPAWN_DROPITEM', 4, (e) => {
-    if (e.gameId in loot) {
-      delete loot[e.gameId];
-    }
-  });
-
-  mod.hook('C_TRY_LOOT_DROPITEM', 4, () => {
-    if (enable && !enableAuto) {
-      lootAll();
-    }
+  
+  mod.hook('C_PLAYER_LOCATION', 5, (e) => {
+    location = e.loc;
   });
 
   // helper
@@ -78,61 +77,65 @@ module.exports = function AutoLootOld(mod) {
   }
 
   function lootAll() {
-    if (!enable || loot.size === 0) {
+    if (!settings.enable || loot.size === 0) {
       return;
     }
-    clearTimeout(lootDelayTimeout);
-    lootDelayTimeout = null;
+    clearTimeout(timeout);
+    timeout = null;
     for (let item in loot) {
       if (dist3D(location, loot[item].loc) < 120) {
         mod.send('C_TRY_LOOT_DROPITEM', 4, { gameId: loot[item].gameId });
         break;
       }
     }
-    lootDelayTimeout = setTimeout(lootAll, config.lootDelay);
-  }
-
-  function status() {
-    send(`${enable ? 'En' : 'Dis'}abled`,
-      `Auto-loot ${enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}`);
+    timeout = setTimeout(lootAll, settings.lootDelay);
   }
 
   function setup() {
     clearInterval(loop);
     loop = null;
-    loop = enable && enableAuto ? setInterval(lootAll, config.loopInterval) : null;
+    loop = settings.enable && settings.enableAuto ? setInterval(lootAll, settings.loopInterval) : null;
   }
 
-  function send(msg) { cmd.message(': ' + [...arguments].join('\n\t - ')); }
+  // code
+  mod.hook('S_SPAWN_DROPITEM', 7, (e) => {
+    if (!settings.blacklist.includes(e.item)) {
+      loot[e.gameId] = e;
+    }
+  });
+
+  mod.hook('S_DESPAWN_DROPITEM', 4, { order: -10 }, (e) => {
+    if (e.gameId in loot) {
+      delete loot[e.gameId];
+    }
+  });
+
+  mod.hook('C_TRY_LOOT_DROPITEM', 4, () => {
+    if (settings.enable && !settings.enableAuto) {
+      lootAll();
+    }
+  });
+
+  function send() { cmd.message(': ' + [...arguments].join('\n\t - ')); }
 
   // reload
   this.saveState = () => {
-    let state = {
-      enable: enable,
-      enableAuto: enableAuto,
-      location: location
-    };
-    return state;
+    return location;
   }
 
   this.loadState = (state) => {
-    enable = state.enable;
-    enableAuto = state.enableAuto;
-    location = state.location;
+    location = state;
     setup();
-    status();
   }
 
   this.destructor = () => {
-    clearTimeout(lootDelayTimeout);
+    clearTimeout(timeout);
     clearInterval(loop);
 
-    lootDelayTimeout = undefined;
+    timeout = undefined;
     loot = undefined;
     loop = undefined;
     location = undefined;
-    enableAuto = undefined;
-    enable = undefined;
 
     cmd.remove(['loot', 'ㅣㅐㅐㅅ']);
   }

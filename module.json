@@ -1,17 +1,20 @@
 {
   "author": "seraphinush | Saegusae",
   "conflict": ["reserve-loot"],
-  "description": "tera-proxy module to loot items automatically",
+  "description": "tera-toolbox module to loot items automatically",
   "disableAutoUpdate": false,
   "donationUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7QQJZV9L5P2J&source=url",
   "name": "auto-loot-old",
   "options": {
     "niceName": "auto-loot",
-    "reloadable": true
+    "reloadable": true,
+    "settingsVersion": 1,
+    "settingsFile": "config.json",
+    "settingsMigrator": "settings.js"
   },
   "servers": [
     "https://raw.githubusercontent.com/seraphinush-gaming/auto-loot/master/"
   ],
   "supportUrl": "https://github.com/seraphinush-gaming/auto-loot/blob/master/README.md",
-  "version": "1.42.07"
+  "version": "1.43.00"
 }

@@ -19,22 +19,11 @@ Support seraph via paypal donations, thanks in advance !
 ### Arguments
 - __`auto`__
   - Toggle automatic loot attempt on interval on/off
-- __`status`__
-  - Send status of module and auto function
-
-## Config
-- __`auto`__
-  - Initialize automatic loot attempt on interval on/off
-  - Default is `true`
-- __`enable`__
-  - Initialize module on/off
-  - Default is `true`
-- __`lootDelay`__
-  - Initialize loot attempt delay
-  - Default is `400`
-- __`loopInterval`__
-  - Initialize loot attempt interval
-  - Default is `300`
+- __`set`__
+  - __`delay num`__
+    - Set delay between loot attempt to `num`
+  - __`interval num`__
+    - Set loot delay between automatic loot to `num`
 
 ## Info
 - Original author : [Saegusae](https://github.com/Saegusae)
@@ -42,6 +31,10 @@ Support seraph via paypal donations, thanks in advance !
 ## Changelog
 <details>
 
+    1.43
+    - Added settings-migrator support
+    - Added `set [delay|interval]` option
+    - Removed `status` option
     1.42
     - Removed `tera-game-state` usage
     1.41

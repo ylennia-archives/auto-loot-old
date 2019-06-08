@@ -1,12 +1,9 @@
 {
 	"files": {
-		"README.md": "4c8f0e0cf0f3ac77bf5e132c7ede1c6fecd0751854fd1566269c2481a826f149",
-		"config.js": {
-			"overwrite": false,
-			"hash": "0434acd1d4705dacec1db71da362c090a2c0ca08dd561dc30561bbe8befad322"
-		},
-		"index.js": "92a28668788ae2dcf59edeb5d4aa2a068118fd0a86dcdb90bb6f7dfb1c42b559",
-		"module.json": "b5f830b226d014b0be778337c13a2e602d18c8778b1b0c4a26b60858842bb3f6"
+		"README.md": "2f95b6de1b179ec31a10c8a344bd3a4fa51a01e973c22855a0e474de3b6377c3",
+		"index.js": "a3c1c8014c7780352da35a5d318ff1dae476ec3a3e7b5fbed7c41fe9989ca889",
+		"module.json": "fde25435f5b4e3d8225f411165c58a0f222ae82ea48f4d5d2d2434b714f7c77c",
+		"settings.js": "90785ab063e4126954c28be28110c2704d9efd57ea69eb8cb5baa0d9669e85a5"
 	},
 	"defs": {
 		"C_PLAYER_LOCATION": 5,
