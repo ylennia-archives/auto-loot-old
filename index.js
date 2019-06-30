@@ -59,7 +59,6 @@ module.exports = function AutoLootOld(mod) {
   mod.hook('S_LOAD_TOPO', 3, { order: -1000 }, (e) => {
     clearInterval(loop);
     location = e.loc;
-    loot.length = 0;
     loot = {};
   });
   
@@ -77,7 +76,7 @@ module.exports = function AutoLootOld(mod) {
   }
 
   function lootAll() {
-    if (!settings.enable || loot.size === 0) {
+    if (!settings.enable || Object.keys(loot).length === 0) {
       return;
     }
     clearTimeout(timeout);
@@ -98,7 +97,7 @@ module.exports = function AutoLootOld(mod) {
   }
 
   // code
-  mod.hook('S_SPAWN_DROPITEM', 7, (e) => {
+  mod.hook('S_SPAWN_DROPITEM', 8, (e) => {
     if (!settings.blacklist.includes(e.item)) {
       loot[e.gameId] = e;
     }

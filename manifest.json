@@ -1,8 +1,8 @@
 {
 	"files": {
 		"README.md": "2f95b6de1b179ec31a10c8a344bd3a4fa51a01e973c22855a0e474de3b6377c3",
-		"index.js": "a3c1c8014c7780352da35a5d318ff1dae476ec3a3e7b5fbed7c41fe9989ca889",
-		"module.json": "fde25435f5b4e3d8225f411165c58a0f222ae82ea48f4d5d2d2434b714f7c77c",
+		"index.js": "402a9f0910c128953e48f2a9edc08606255f2609ac04c617bd7f14146f515762",
+		"module.json": "370194f1f871ac5ae1a487a268d70fd9ce969c78c2ba6974f8a8b2164d27c728",
 		"settings.js": "90785ab063e4126954c28be28110c2704d9efd57ea69eb8cb5baa0d9669e85a5"
 	},
 	"defs": {
@@ -10,7 +10,7 @@
 		"C_TRY_LOOT_DROPITEM": 4,
 		"S_DESPAWN_DROPITEM": 4,
 		"S_LOAD_TOPO": 3,
-		"S_SPAWN_DROPITEM": 7,
+		"S_SPAWN_DROPITEM": 8,
 		"S_SPAWN_ME": "raw"
 	}
 }
