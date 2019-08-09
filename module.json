@@ -1,6 +1,6 @@
 {
-  "author": "seraphinush | Saegusae",
-  "conflict": ["reserve-loot"],
+  "author": "seraphinush . Saegusae",
+  "conflict": ["loot", "reserve-loot"],
   "description": "tera-toolbox module to loot items automatically",
   "disableAutoUpdate": false,
   "donationUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7QQJZV9L5P2J&source=url",
@@ -16,5 +16,5 @@
     "https://raw.githubusercontent.com/seraphinush-gaming/auto-loot/master/"
   ],
   "supportUrl": "https://github.com/seraphinush-gaming/auto-loot/blob/master/README.md",
-  "version": "1.43.01"
+  "version": "1.44.00"
 }

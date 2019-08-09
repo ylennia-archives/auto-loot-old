@@ -1,16 +1,14 @@
 {
 	"files": {
-		"README.md": "2f95b6de1b179ec31a10c8a344bd3a4fa51a01e973c22855a0e474de3b6377c3",
-		"index.js": "402a9f0910c128953e48f2a9edc08606255f2609ac04c617bd7f14146f515762",
-		"module.json": "370194f1f871ac5ae1a487a268d70fd9ce969c78c2ba6974f8a8b2164d27c728",
+		"README.md": "c4ec4abab9f7be5183e84b4c01dec9ac808099bfcf50595e4c514fdc765cff06",
+		"index.js": "503e658f477af9ac85746d1717b5e2d61f62e6b8619d509fe4bb577b310b5a93",
+		"module.json": "5d70a150ca6691d617fecb712de81a56ec77664c989e2265576bd98162d84009",
 		"settings.js": "90785ab063e4126954c28be28110c2704d9efd57ea69eb8cb5baa0d9669e85a5"
 	},
 	"defs": {
 		"C_PLAYER_LOCATION": 5,
 		"C_TRY_LOOT_DROPITEM": 4,
 		"S_DESPAWN_DROPITEM": 4,
-		"S_LOAD_TOPO": 3,
-		"S_SPAWN_DROPITEM": 8,
-		"S_SPAWN_ME": "raw"
+		"S_SPAWN_DROPITEM": 8
 	}
 }

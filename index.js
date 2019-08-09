@@ -52,19 +52,25 @@ module.exports = function AutoLootOld(mod) {
   });
 
   // game state
-  mod.hook('S_SPAWN_ME', 'raw', { order: -1000 }, () => {
+  mod.game.on('enter_loading_screen', () => {
+    clearInterval(loop);
+    location = null;
+    loot = {};
+  });
+
+  mod.game.on('leave_loading_screen', () => {
     setup();
   });
 
-  mod.hook('S_LOAD_TOPO', 3, { order: -1000 }, (e) => {
+  /* mod.hook('S_LOAD_TOPO', 3, { order: -100 }, (e) => {
     clearInterval(loop);
     location = e.loc;
     loot = {};
   });
-  
-  mod.hook('C_PLAYER_LOCATION', 5, (e) => {
-    location = e.loc;
-  });
+
+  mod.hook('S_SPAWN_ME', 'raw', { order: -100 }, () => {
+    setup();
+  }); */
 
   // helper
   function dist3D(loc1, loc2) {
@@ -76,7 +82,7 @@ module.exports = function AutoLootOld(mod) {
   }
 
   function lootAll() {
-    if (!settings.enable || Object.keys(loot).length === 0) {
+    if (!settings.enable || !location || Object.keys(loot).length === 0) {
       return;
     }
     clearTimeout(timeout);
@@ -97,6 +103,10 @@ module.exports = function AutoLootOld(mod) {
   }
 
   // code
+  mod.hook('C_PLAYER_LOCATION', 5, (e) => {
+    location = e.loc;
+  });
+
   mod.hook('S_SPAWN_DROPITEM', 8, (e) => {
     if (!settings.blacklist.includes(e.item)) {
       loot[e.gameId] = e;
