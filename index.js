@@ -62,16 +62,6 @@ module.exports = function AutoLootOld(mod) {
     setup();
   });
 
-  /* mod.hook('S_LOAD_TOPO', 3, { order: -100 }, (e) => {
-    clearInterval(loop);
-    location = e.loc;
-    loot = {};
-  });
-
-  mod.hook('S_SPAWN_ME', 'raw', { order: -100 }, () => {
-    setup();
-  }); */
-
   // helper
   function dist3D(loc1, loc2) {
     return Math.sqrt(
@@ -107,13 +97,13 @@ module.exports = function AutoLootOld(mod) {
     location = e.loc;
   });
 
-  mod.hook('S_SPAWN_DROPITEM', 8, (e) => {
+  mod.hook('S_SPAWN_DROPITEM', 8, { order: 10 }, (e) => {
     if (!settings.blacklist.includes(e.item)) {
       loot[e.gameId] = e;
     }
   });
 
-  mod.hook('S_DESPAWN_DROPITEM', 4, { order: -10 }, (e) => {
+  mod.hook('S_DESPAWN_DROPITEM', 4, { order: 10 }, (e) => {
     if (e.gameId in loot) {
       delete loot[e.gameId];
     }
