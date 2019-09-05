@@ -12,7 +12,6 @@ module.exports = function AutoLootOld(mod) {
 
   // command
   cmd.add(['loot', 'ㅣㅐㅐㅅ'], {
-    // toggle
     '$none': () => {
       settings.enable = !settings.enable;
       setup();
@@ -128,6 +127,7 @@ module.exports = function AutoLootOld(mod) {
   }
 
   this.destructor = () => {
+    cmd.remove(['loot', 'ㅣㅐㅐㅅ']);
     clearTimeout(timeout);
     clearInterval(loop);
 
@@ -135,8 +135,6 @@ module.exports = function AutoLootOld(mod) {
     loot = undefined;
     loop = undefined;
     location = undefined;
-
-    cmd.remove(['loot', 'ㅣㅐㅐㅅ']);
   }
 
 }
