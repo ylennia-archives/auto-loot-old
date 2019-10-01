@@ -1,17 +1,17 @@
 'use strict';
 
 module.exports = function AutoLootOld(mod) {
+
   const cmd = mod.command;
+  const settings = mod.settings;
 
-  let settings = mod.settings;
-
-  let location = { x: 0, y: 0, z: 0 };
+  let location = null;
   let loop = null;
   let loot = {};
   let timeout = null;
 
   // command
-  cmd.add(['loot', 'ㅣㅐㅐㅅ'], {
+  cmd.add(['loot'], {
     '$none': () => {
       settings.enable = !settings.enable;
       setup();
@@ -52,7 +52,7 @@ module.exports = function AutoLootOld(mod) {
 
   // game state
   mod.game.on('enter_loading_screen', () => {
-    clearInterval(loop);
+    mod.clearInterval(loop);
     location = null;
     loot = {};
   });
@@ -60,6 +60,21 @@ module.exports = function AutoLootOld(mod) {
   mod.game.on('leave_loading_screen', () => {
     setup();
   });
+
+  // destructor
+  this.destructor = () => {
+    cmd.remove('loot');
+    mod.clearTimeout(timeout);
+    mod.clearInterval(loop);
+
+    timeout = undefined;
+    loot = undefined;
+    loop = undefined;
+    location = undefined;
+
+    settings = undefined;
+    cmd = undefined;
+  }
 
   // helper
   function dist3D(loc1, loc2) {
@@ -74,7 +89,7 @@ module.exports = function AutoLootOld(mod) {
     if (!settings.enable || !location || Object.keys(loot).length === 0) {
       return;
     }
-    clearTimeout(timeout);
+    mod.clearTimeout(timeout);
     timeout = null;
     for (let item in loot) {
       if (dist3D(location, loot[item].loc) < 120) {
@@ -82,17 +97,17 @@ module.exports = function AutoLootOld(mod) {
         break;
       }
     }
-    timeout = setTimeout(lootAll, settings.lootDelay);
+    timeout = mod.setTimeout(lootAll, settings.lootDelay);
   }
 
   function setup() {
-    clearInterval(loop);
+    mod.clearInterval(loop);
     loop = null;
-    loop = settings.enable && settings.enableAuto ? setInterval(lootAll, settings.loopInterval) : null;
+    loop = settings.enable && settings.enableAuto ? mod.setInterval(lootAll, settings.loopInterval) : null;
   }
 
   // code
-  mod.hook('C_PLAYER_LOCATION', 5, (e) => {
+  mod.hook('C_PLAYER_LOCATION', 5, { order: 10 }, (e) => {
     location = e.loc;
   });
 
@@ -124,17 +139,6 @@ module.exports = function AutoLootOld(mod) {
   this.loadState = (state) => {
     location = state;
     setup();
-  }
-
-  this.destructor = () => {
-    cmd.remove(['loot', 'ㅣㅐㅐㅅ']);
-    clearTimeout(timeout);
-    clearInterval(loop);
-
-    timeout = undefined;
-    loot = undefined;
-    loop = undefined;
-    location = undefined;
   }
 
 }

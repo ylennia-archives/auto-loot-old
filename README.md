@@ -14,7 +14,7 @@ Support seraph via paypal donations, thanks in advance !
 - Create a folder called `auto-loot-old` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/auto-loot-old/master/module.json) << (right-click this link and save link as..) into the folder
 
 ## Usage
-- __`loot` · `ㅣㅐㅐㅅ`__
+- __`loot`__
   - Toggle on/off
 ### Arguments
 - __`auto`__
@@ -31,6 +31,8 @@ Support seraph via paypal donations, thanks in advance !
 ## Changelog
 <details>
 
+    1.45
+    - Removed `ㅣㅐㅐㅅ` command
     1.44
     - Reinstated `tera-game-state`
     1.43
