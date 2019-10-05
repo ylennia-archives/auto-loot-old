@@ -2,7 +2,7 @@
 
 module.exports = function AutoLootOld(mod) {
 
-  const cmd = mod.command;
+  let cmd = mod.command;
   let settings = mod.settings;
 
   let location = null;
