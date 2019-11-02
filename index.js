@@ -2,8 +2,8 @@
 
 module.exports = function AutoLootOld(mod) {
 
-  let cmd = mod.command;
-  let settings = mod.settings;
+  let c = mod.command;
+  let s = mod.settings;
 
   let location = null;
   let loop = null;
@@ -11,30 +11,34 @@ module.exports = function AutoLootOld(mod) {
   let timeout = null;
 
   // command
-  cmd.add(['loot'], {
+  c.add(['loot'], {
     '$none': () => {
-      settings.enable = !settings.enable;
+      s.enable = !s.enable;
       setup();
-      send(`${settings.enable ? 'En' : 'Dis'}abled`);
+      send(`${s.enable ? 'En' : 'Dis'}abled`);
     },
     'auto': () => {
-      settings.enableAuto = !settings.enableAuto;
+      s.enableAuto = !s.enableAuto;
       setup();
-      send(`Automatic loot interval ${settings.enableAuto ? 'en' : 'dis'}abled`);
+      send(`Automatic loot interval ${s.enableAuto ? 'en' : 'dis'}abled`);
     },
     'set': {
-      'delay': (num) => {
-        num = parseInt(num);
-        if (!isNaN(num)) {
-          settings.lootDelay = num;
-          send(`Set automatic loot attempt delay to ${num} ms.`);
+      'delay': (n) => {
+        n = parseInt(n);
+        if (!isNaN(n)) {
+          s.lootDelay = n;
+          send(`Set automatic loot attempt delay to ${n} ms.`);
+        } else {
+          send(`Invalid argument. usage : loot set delay &lt;num&gt;`);
         }
       },
-      'interval': (num) => {
-        num = parseInt(num);
-        if (!isNaN(num)) {
-          settings.loopInterval = num;
-          send(`Set automatic loot interval delay to ${num} ms.`);
+      'interval': (n) => {
+        n = parseInt(n);
+        if (!isNaN(n)) {
+          s.loopInterval = n;
+          send(`Set automatic loot interval delay to ${n} ms.`);
+        } else {
+          send(`Invalid argument. usage : loot set interval &lt;num&gt;`);
         }
       },
       '$default': () => {
@@ -42,8 +46,8 @@ module.exports = function AutoLootOld(mod) {
       }
     },
     'status': () => {
-      send(`${settings.enable ? 'En' : 'Dis'}abled`,
-        `Auto-loot ${settings.enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}`);
+      send(`${s.enable ? 'En' : 'Dis'}abled`,
+        `Auto-loot ${s.enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}`);
     },
     '$default': () => {
       send(`Invalid argument. usage : loot [auto|set|status]`);
@@ -61,19 +65,10 @@ module.exports = function AutoLootOld(mod) {
     setup();
   });
 
-  // destructor
   this.destructor = () => {
-    cmd.remove('loot');
+    c.remove('loot');
     mod.clearTimeout(timeout);
     mod.clearInterval(loop);
-
-    timeout = undefined;
-    loot = undefined;
-    loop = undefined;
-    location = undefined;
-
-    settings = undefined;
-    cmd = undefined;
   }
 
   // helper
@@ -86,24 +81,22 @@ module.exports = function AutoLootOld(mod) {
   }
 
   function lootAll() {
-    if (!settings.enable || !location || Object.keys(loot).length === 0) {
+    if (!s.enable || !location || Object.keys(loot).length === 0)
       return;
-    }
+
     mod.clearTimeout(timeout);
-    timeout = null;
     for (let item in loot) {
       if (dist3D(location, loot[item].loc) < 120) {
         mod.send('C_TRY_LOOT_DROPITEM', 4, { gameId: loot[item].gameId });
         break;
       }
     }
-    timeout = mod.setTimeout(lootAll, settings.lootDelay);
+    timeout = mod.setTimeout(lootAll, s.lootDelay);
   }
 
   function setup() {
     mod.clearInterval(loop);
-    loop = null;
-    loop = settings.enable && settings.enableAuto ? mod.setInterval(lootAll, settings.loopInterval) : null;
+    loop = s.enable && s.enableAuto ? mod.setInterval(lootAll, s.loopInterval) : null;
   }
 
   // code
@@ -112,24 +105,18 @@ module.exports = function AutoLootOld(mod) {
   });
 
   mod.hook('S_SPAWN_DROPITEM', 8, { order: 10 }, (e) => {
-    if (!settings.blacklist.includes(e.item)) {
-      loot[e.gameId] = e;
-    }
+    !s.blacklist.includes(e.item) ? loot[e.gameId] = e : null;
   });
 
   mod.hook('S_DESPAWN_DROPITEM', 4, { order: 10 }, (e) => {
-    if (e.gameId in loot) {
-      delete loot[e.gameId];
-    }
+    e.gameId in loot ? delete loot[e.gameId] : null;
   });
 
   mod.hook('C_TRY_LOOT_DROPITEM', 4, () => {
-    if (settings.enable && !settings.enableAuto) {
-      lootAll();
-    }
+    s.enable && !s.enableAuto ? lootAll() : null;
   });
 
-  function send() { cmd.message(': ' + [...arguments].join('\n\t - ')); }
+  function send() { c.message(': ' + [...arguments].join('\n\t - ')); }
 
   // reload
   this.saveState = () => {
