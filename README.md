@@ -20,9 +20,9 @@ Support seraph via paypal donations, thanks in advance !
 - __`auto`__
   - Toggle automatic loot attempt on interval on/off
 - __`set`__
-  - __`delay num`__
+  - __`delay <num>`__
     - Set delay between loot attempt to `num`
-  - __`interval num`__
+  - __`interval <num>`__
     - Set loot delay between automatic loot to `num`
 
 ## Info

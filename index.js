@@ -42,7 +42,7 @@ module.exports = function AutoLootOld(mod) {
         }
       },
       '$default': () => {
-        send(`Invalid argument. usage : loot set [delay|interval]`);
+        send(`Invalid argument. usage : loot set [delay|interval] &lt;num&gt;`);
       }
     },
     'status': () => {
