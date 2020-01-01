@@ -116,7 +116,7 @@ module.exports = function AutoLootOld(mod) {
     s.enable && !s.enableAuto ? lootAll() : null;
   });
 
-  function send() { c.message(': ' + [...arguments].join('\n\t - ')); }
+  function send() { c.message(': ' + [...arguments].join('\n - ')); }
 
   // reload
   this.saveState = () => {
