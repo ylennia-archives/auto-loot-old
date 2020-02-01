@@ -13,8 +13,8 @@
     "settingsMigrator": "settings.js"
   },
   "servers": [
-    "https://raw.githubusercontent.com/seraphinush-gaming/auto-loot/master/"
+    "https://raw.githubusercontent.com/ylennia-archives/auto-loot/master/"
   ],
-  "supportUrl": "https://github.com/seraphinush-gaming/auto-loot/blob/master/README.md",
-  "version": "1.45.05"
+  "supportUrl": "https://github.com/ylennia-archives/auto-loot/blob/master/README.md",
+  "version": "1.45.06"
 }
