@@ -65,6 +65,10 @@ module.exports = function AutoLootOld(mod) {
     setup();
   });
 
+  mod.game.me.on('mount', () => {
+    location = null;
+  });
+
   this.destructor = () => {
     c.remove('loot');
     mod.clearTimeout(timeout);

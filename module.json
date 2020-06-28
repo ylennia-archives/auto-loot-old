@@ -1,9 +1,9 @@
 {
   "author": "seraphinush . Saegusae",
-  "conflict": ["loot", "reserve-loot"],
+  "conflict": ["loot","reserve-loot"],
   "description": "tera-toolbox module to loot items automatically",
   "disableAutoUpdate": false,
-  "donationUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7QQJZV9L5P2J&source=url",
+  "donationUrl": "https://www.paypal.me/seraphinush",
   "name": "auto-loot-old",
   "options": {
     "niceName": "auto-loot",
@@ -12,9 +12,7 @@
     "settingsFile": "config.json",
     "settingsMigrator": "settings.js"
   },
-  "servers": [
-    "https://raw.githubusercontent.com/ylennia-archives/auto-loot-old/master/"
-  ],
+  "servers": ["https://raw.githubusercontent.com/ylennia-archives/auto-loot-old/master/"],
   "supportUrl": "https://github.com/ylennia-archives/auto-loot-old/blob/master/README.md",
-  "version": "1.45.07"
+  "version": "1.46.00.na.95.04"
 }
