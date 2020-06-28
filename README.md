@@ -4,7 +4,7 @@
 </a>
 </p>
 
-# auto-loot-old [![paypal](https://img.shields.io/badge/paypal-donate-333333.svg?colorA=253B80&colorB=333333)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MPKFVY9JT7Z3A&source=url) [![paypal.me](https://img.shields.io/badge/paypal.me-donate-333333.svg?colorA=169BD7&colorB=333333)](https://www.paypal.me/seraphinush) 
+# auto-loot-old [![paypal.me](https://img.shields.io/badge/paypal.me-donate-333333.svg?colorA=40CEDB&colorB=333333)](https://www.paypal.me/seraphinush) 
 tera-toolbox module to loot items automatically
 ```
 Support seraph via paypal donations, thanks in advance !
