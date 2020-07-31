@@ -4,11 +4,13 @@
 </a>
 </p>
 
-# auto-loot-old [![paypal.me](https://img.shields.io/badge/paypal.me-donate-333333.svg?colorA=40CEDB&colorB=333333)](https://www.paypal.me/seraphinush) 
-tera-toolbox module to loot items automatically
 ```
 Support seraph via paypal donations, thanks in advance !
 ```
+
+# auto-loot-old [![](https://img.shields.io/badge/paypal-donate-333333.svg?colorA=0070BA&colorB=333333)](https://www.paypal.me/seraphinush) 
+tera-toolbox module to loot items automatically
+
 
 ## Auto-update guide
 - Create a folder called `auto-loot-old` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/auto-loot-old/master/module.json) << (right-click this link and save link as..) into the folder
