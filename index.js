@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function AutoLootOld(mod) {
+module.exports.NetworkMod = function AutoLootOld(mod) {
 
   let c = mod.command;
   let s = mod.settings;
