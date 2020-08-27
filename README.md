@@ -1,9 +1,3 @@
-<p align="center">
-<a href="#">
-<img src="https://github.com/seraphinush-gaming/pastebin/blob/master/logo_ttb_trans.png?raw=true" width="200" height="200" alt="tera-toolbox, logo by Foglio" />
-</a>
-</p>
-
 ```
 Support seraph via paypal donations, thanks in advance !
 ```

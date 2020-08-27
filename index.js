@@ -115,13 +115,7 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
   function send() { c.message(': ' + [...arguments].join('\n - ')); }
 
   // reload
-  this.saveState = () => {
-    return location;
-  }
-
-  this.loadState = (state) => {
-    location = state;
-    setup();
-  }
+  this.saveState = () => {}
+  this.loadState = () => { setup(); }
 
 }
