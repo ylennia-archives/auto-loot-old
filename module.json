@@ -6,7 +6,7 @@
   "donationUrl": "https://www.paypal.me/seraphinush",
   "name": "auto-loot-old",
   "options": {
-    "niceName": "auto-loot",
+    "niceName": "auto-loot-old",
     "reloadable": true,
     "settingsVersion": 1,
     "settingsFile": "config.json",
@@ -14,5 +14,5 @@
   },
   "servers": ["https://raw.githubusercontent.com/ylennia-archives/auto-loot-old/master/"],
   "supportUrl": "https://github.com/ylennia-archives/auto-loot-old/blob/master/README.md",
-  "version": "1.46.05.v97.03"
+  "version": "1.46.06.v99.02"
 }

@@ -100,7 +100,7 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
     location = e.loc;
   });
 
-  mod.hook('S_SPAWN_DROPITEM', 8, { order: 10 }, (e) => {
+  mod.hook('S_SPAWN_DROPITEM', 9, { order: 10 }, (e) => {
     !s.blacklist.includes(e.item) ? loot[e.gameId] = e : null;
   });
 

@@ -1,8 +1,14 @@
 {
-  "files": {
-    "README.md": "a0c70ece22437479c4e1ffd5c83f7d92de98c821502e405e582606692b50af70",
-    "index.js": "c0f7236c1495be280705218508361b41bf8203b79385bd102df684d7db1c0ee7",
-    "module.json": "a4bd06df3a4eb0d151532c87a1383badc0d58f0ed070971e834e70710cf6416e",
-    "settings.js": "539c145978f0d450ee620a079665f95e816fe9168db0d7087b3430ed8e90a0f0"
-  }
+	"files": {
+		"README.md": "a0c70ece22437479c4e1ffd5c83f7d92de98c821502e405e582606692b50af70",
+		"index.js": "ab52c5a3266478b47c1e37a34f42a2add6341198b87375a472ce46cf8a9562d5",
+		"module.json": "054c93ff88df33982d02444f5cd7b6a3e70a2f2e5d05f105b45a4b20529b33e5",
+		"settings.js": "539c145978f0d450ee620a079665f95e816fe9168db0d7087b3430ed8e90a0f0"
+	},
+	"defs": {
+		"C_PLAYER_LOCATION": 5,
+		"C_TRY_LOOT_DROPITEM": 4,
+		"S_DESPAWN_DROPITEM": 4,
+		"S_SPAWN_DROPITEM": 9
+	}
 }
