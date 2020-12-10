@@ -19,6 +19,8 @@ tera-toolbox module to loot items automatically
     - Set delay between loot attempt to `num`
   - __`interval <num>`__
     - Set loot delay between automatic loot to `num`
+- __`usage`__
+  - Send command and arguments to chat
 
 ## Info
 - Original author : [Saegusae](https://github.com/Saegusae)
@@ -26,6 +28,9 @@ tera-toolbox module to loot items automatically
 ## Changelog
 <details>
 
+    1.47
+    - Added `usage` option
+    - Added Corrupted Skynest (normal / hard) essences to default blacklist
     1.46
     - Added mount state
     1.45

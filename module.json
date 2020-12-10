@@ -8,11 +8,11 @@
   "options": {
     "niceName": "auto-loot-old",
     "reloadable": true,
-    "settingsVersion": 1,
+    "settingsVersion": 2,
     "settingsFile": "config.json",
     "settingsMigrator": "settings.js"
   },
   "servers": ["https://raw.githubusercontent.com/ylennia-archives/auto-loot-old/master/"],
   "supportUrl": "https://github.com/ylennia-archives/auto-loot-old/blob/master/README.md",
-  "version": "1.46.06.v99.02"
+  "version": "1.47.00.v100.02"
 }

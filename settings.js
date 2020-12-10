@@ -20,7 +20,8 @@ const DefaultSettings = {
     46701, // Inversion Mote
     91344, // Fashion Coupon
     139113, 166718, 213026, // 행운의 상자 (K TERA)
-    169886, 169887, 169888, 169889, 169890, 169891 // Locked ???? Strongbox
+    169886, 169887, 169888, 169889, 169890, 169891, // Locked ???? Strongbox
+    602172, 602173, 602174, 602175 // Corrupted Skynest (normal / hard)
   ]
 };
 
@@ -37,7 +38,9 @@ function MigrateSettings(from_ver, to_ver, settings) {
       return MigrateSettings(from_ver + 1, to_ver, settings);
     }
     switch (to_ver) {
-      //
+      case 2:
+        settings.blacklist.push(602172, 602173, 602174, 602175);
+        break;
     }
 
     return settings;
