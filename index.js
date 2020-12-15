@@ -9,7 +9,7 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
   let timeout = null;
 
   // command
-  mod.command.add(['loot'], {
+  mod.command.add('loot', {
     '$none': () => {
       mod.settings.enable = !mod.settings.enable;
       setup();
@@ -109,6 +109,6 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
 
   // reload
   this.saveState = () => {}
-  this.loadState = () => { setup(); }
+  this.loadState = () => {}
 
 }
