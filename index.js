@@ -72,8 +72,7 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
   }
 
   function lootAll() {
-    if (!mod.settings.enable || mod.game.me.mounted || !location || Object.keys(loot).length === 0)
-      return;
+    if (!mod.settings.enable || mod.game.me.mounted || !location || Object.keys(loot).length === 0) return;
 
     mod.clearTimeout(timeout);
     for (let item in loot) {
