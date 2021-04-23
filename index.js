@@ -23,21 +23,20 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
     'set': {
       'delay': (num) => {
         num = parseInt(num);
-        if (!isNaN(num)) {
-          mod.settings.lootDelay = num;
-          send(`Set automatic loot attempt delay to ${num} ms.`);
-        } else {
-          send(`Invalid argument. usage : loot set delay &lt;num&gt;`);
-        }
+        if (isNaN(num))
+          return send(`Invalid argument. usage : loot set delay &lt;num&gt;`);
+
+        mod.settings.lootDelay = num;
+        send(`Set automatic loot attempt delay to ${num} ms.`);
       },
       'interval': (num) => {
         num = parseInt(num);
-        if (!isNaN(num)) {
-          mod.settings.loopInterval = num;
-          send(`Set automatic loot interval delay to ${num} ms.`);
-        } else {
-          send(`Invalid argument. usage : loot set interval &lt;num&gt;`);
-        }
+        if (isNaN(num))
+          return send(`Invalid argument. usage : loot set interval &lt;num&gt;`);
+
+        mod.settings.loopInterval = num;
+        send(`Set automatic loot interval delay to ${num} ms.`);
+
       },
       '$default': () => send(`Invalid argument. usage : loot set [delay|interval] &lt;num&gt;`)
     },
@@ -45,8 +44,8 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
       send(`${mod.settings.enable ? 'En' : 'Dis'}abled`);
       send(`Auto-loot ${mod.settings.enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}`);
     },
-    'usage': () => send(`usage : loot [auto|set|status|usage]`),
-    '$default': () => send(`Invalid argument. usage : loot [auto|set|status|usage]`)
+    'help': () => send(`usage : loot [auto|set|status]`),
+    '$default': () => send(`Invalid argument. usage : loot [auto|set|status|help]`)
   });
 
   // game state
@@ -90,7 +89,7 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
   }
 
   // code
-  mod.hook('C_PLAYER_LOCATION', 5, { order: 10 }, (e) => location = e.loc );
+  mod.hook('C_PLAYER_LOCATION', 5, { order: 10 }, (e) => location = e.loc);
 
   mod.hook('S_SPAWN_DROPITEM', 9, { order: 10 }, (e) => {
     !mod.settings.blacklist.includes(e.item) ? loot[e.gameId] = e : null;

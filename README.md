@@ -1,5 +1,5 @@
 ```
-Support seraph via paypal donations, thanks in advance !
+Support seraph via donations, thanks in advance !
 ```
 
 # auto-loot-old [![](https://img.shields.io/badge/paypal-donate-333333.svg?colorA=0070BA&colorB=333333)](https://www.paypal.me/seraphinush) [![](https://img.shields.io/badge/patreon-pledge-333333.svg?colorA=F96854&colorB=333333)](https://www.patreon.com/seraphinush)
@@ -9,17 +9,17 @@ tera-toolbox module to loot items automatically
 - Create a folder called `auto-loot-old` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/ylennia-archives/auto-loot-old/master/module.json) << (right-click this link and save link as..) into the folder
 
 ## Usage
-- __`loot`__
+- `loot`
   - Toggle on/off
 ### Arguments
-- __`auto`__
+- `auto`
   - Toggle automatic loot attempt on interval on/off
-- __`set`__
-  - __`delay <num>`__
+- `set`
+  - `delay <num>`
     - Set delay between loot attempt to `num`
-  - __`interval <num>`__
+  - `interval <num>`
     - Set loot delay between automatic loot to `num`
-- __`usage`__
+- `help`
   - Send command and arguments to chat
 
 ## Info
@@ -28,6 +28,8 @@ tera-toolbox module to loot items automatically
 ## Changelog
 <details>
 
+    1.48
+    - Changed `usage` option to `help` option
     1.47
     - Added `usage` option
     - Added Corrupted Skynest (normal / hard) essences to default blacklist
