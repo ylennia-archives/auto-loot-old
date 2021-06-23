@@ -19,7 +19,7 @@ tera-toolbox module to loot items automatically
     - Set delay between loot attempt to `num`
   - `interval <num>`
     - Set loot delay between automatic loot to `num`
-- `help`
+- `?`
   - Send command and arguments to chat
 
 ## Info
@@ -28,6 +28,8 @@ tera-toolbox module to loot items automatically
 ## Changelog
 <details>
 
+    1.49
+    - Changed `help` option to `?` option
     1.48
     - Changed `usage` option to `help` option
     1.47

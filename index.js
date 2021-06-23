@@ -44,8 +44,8 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
       send(`${mod.settings.enable ? 'En' : 'Dis'}abled`);
       send(`Auto-loot ${mod.settings.enableAuto ? 'enabled' : 'disabled. multi-loot enabled'}`);
     },
-    'help': () => send(`usage : loot [auto|set|status]`),
-    '$default': () => send(`Invalid argument. usage : loot [auto|set|status|help]`)
+    '?': () => send(`usage : loot [auto|set|status]`),
+    '$default': () => send(`Invalid argument. usage : loot [auto|set|status|?]`)
   });
 
   // game state
