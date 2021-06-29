@@ -66,16 +66,12 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
   }
 
   // helper
-  function dist3D(loc1, loc2) {
-    return Math.sqrt(Math.pow(loc2.x - loc1.x, 2) + Math.pow(loc2.y - loc1.y, 2) + Math.pow(loc2.z - loc1.z, 2));
-  }
-
   function lootAll() {
     if (!mod.settings.enable || mod.game.me.mounted || !location || Object.keys(loot).length === 0) return;
 
     mod.clearTimeout(timeout);
     for (let item in loot) {
-      if (dist3D(location, loot[item].loc) < 120) {
+      if (location.dist3D(loot[item].loc) < 120) {
         mod.send('C_TRY_LOOT_DROPITEM', 4, { gameId: loot[item].gameId });
         break;
       }
@@ -106,7 +102,7 @@ module.exports.NetworkMod = function AutoLootOld(mod) {
   function send(msg) { mod.command.message(': ' + msg); }
 
   // reload
-  this.saveState = () => {}
-  this.loadState = () => {}
+  this.saveState = () => { }
+  this.loadState = () => { }
 
 }

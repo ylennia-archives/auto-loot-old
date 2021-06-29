@@ -10,15 +10,16 @@ tera-toolbox module to loot items automatically
 
 ## Usage
 - `loot`
-  - Toggle on/off
+  - Toggle
+
 ### Arguments
 - `auto`
-  - Toggle automatic loot attempt on interval on/off
+  - Toggle automatic loot on interval
 - `set`
   - `delay <num>`
-    - Set delay between loot attempt to `num`
+    - Set loot interval to `num` ms
   - `interval <num>`
-    - Set loot delay between automatic loot to `num`
+    - Set scan interval to `num` ms
 - `?`
   - Send command and arguments to chat
 
